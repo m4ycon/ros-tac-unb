@@ -1,4 +1,4 @@
-#include "all_nodes.h"
+#include "go_to_destination.h"
 
 GoToDestination::GoToDestination(const std::string &name,
                                  const BT::NodeConfiguration &config,
@@ -19,7 +19,7 @@ BT::NodeStatus GoToDestination::onStart()
   goal_msg.pose.header.frame_id = "map";
   goal_msg.pose.pose.position.x = x;
   goal_msg.pose.pose.position.y = y;
-
+  
   // Calculate quaternion from yaw
   tf2::Quaternion q;
   q.setRPY(0, 0, 0);
@@ -59,28 +59,4 @@ void GoToDestination::nav_to_pose_callback(const GoalHandleNav::WrappedResult &r
   // If there is a result, we consider navigation completed.
   if (result.code == rclcpp_action::ResultCode::SUCCEEDED)
     done_flag_ = true;
-}
-
-BT::NodeStatus Authenticated::tick()
-{
-  RCLCPP_INFO(node_ptr_->get_logger(), "Authenticating\n");
-  rclcpp::sleep_for(std::chrono::seconds(3));
-  RCLCPP_INFO(node_ptr_->get_logger(), "Authenticated\n");
-  return BT::NodeStatus::SUCCESS;
-}
-
-BT::NodeStatus WaitForSample::tick()
-{
-  RCLCPP_INFO(node_ptr_->get_logger(), "Waiting for sample\n");
-  rclcpp::sleep_for(std::chrono::seconds(3));
-  RCLCPP_INFO(node_ptr_->get_logger(), "Sample received\n");
-  return BT::NodeStatus::SUCCESS;
-}
-
-BT::NodeStatus WaitForCollection::tick()
-{
-  RCLCPP_INFO(node_ptr_->get_logger(), "Waiting for collection\n");
-  rclcpp::sleep_for(std::chrono::seconds(3));
-  RCLCPP_INFO(node_ptr_->get_logger(), "Sample collected\n");
-  return BT::NodeStatus::SUCCESS;
 }

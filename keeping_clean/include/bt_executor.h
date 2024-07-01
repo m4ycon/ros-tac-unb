@@ -7,7 +7,6 @@
 #include <fstream>
 #include <chrono>
 
-
 class BTExecutor : public rclcpp::Node
 {
 public:
@@ -18,9 +17,21 @@ public:
   void halt_behavior_tree();
 
   void register_nav2_plugins();
+  void register_nodes();
 
 private:
   BT::BehaviorTreeFactory factory_;
   rclcpp::TimerBase::SharedPtr timer_;
   BT::Tree tree_;
+
+  template <typename T>
+  inline void registerNode(const std::string &name)
+  {
+
+    BT::NodeBuilder builder = [=](const std::string &name, const BT::NodeConfiguration &config)
+    {
+      return std::make_unique<T>(name, config, shared_from_this());
+    };
+    factory_.registerBuilder<T>(name, builder);
+  }
 };

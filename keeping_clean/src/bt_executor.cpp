@@ -1,7 +1,19 @@
 #include "bt_executor.h"
 #include "publisher_node.cpp"
 #include "subscriber_node.cpp"
-#include "all_nodes.cpp"
+
+#include "abort_mission.cpp"
+#include "check_battery.cpp"
+#include "check_equipments.cpp"
+#include "go_to_destination.cpp"
+#include "is_room_free.cpp"
+#include "move_furniture.cpp"
+#include "send_message_to_manager.cpp"
+#include "sterilize_furniture.cpp"
+#include "time_to_complete.cpp"
+#include "vacuum_floor.cpp"
+#include "wait_full_battery.cpp"
+#include "wipe_floor.cpp"
 
 BTExecutor::BTExecutor(const std::string &node_name) : rclcpp::Node(node_name)
 {
@@ -62,6 +74,25 @@ void BTExecutor::register_nav2_plugins()
   plugin_file.close();
 }
 
+void BTExecutor::register_nodes()
+{
+  registerNode<PublisherNode>("Publisher");
+  registerNode<SubscriberNode>("Subscriber");
+
+  registerNode<AbortMission>("AbortMission");
+  registerNode<CheckBattery>("CheckBattery");
+  registerNode<CheckEquipments>("CheckEquipments");
+  registerNode<GoToDestination>("GoToDestination");
+  registerNode<IsRoomFree>("IsRoomFree");
+  registerNode<MoveFurniture>("MoveFurniture");
+  registerNode<SendMessageToManager>("SendMessageToManager");
+  registerNode<SterilizeFurniture>("SterilizeFurniture");
+  registerNode<TimeToComplete>("TimeToComplete");
+  registerNode<VacuumFloor>("VacuumFloor");
+  registerNode<WaitFullBattery>("WaitFullBattery");
+  registerNode<WipeFloor>("WipeFloor");
+}
+
 void BTExecutor::create_behavior_tree()
 {
   rclcpp::Parameter str_param = this->get_parameter("bt");
@@ -69,45 +100,7 @@ void BTExecutor::create_behavior_tree()
 
   // Registering Custom BT Nodes
   RCLCPP_INFO(get_logger(), "Registering Nodes");
-  BT::NodeBuilder builder = [=](const std::string &name, const BT::NodeConfiguration &config)
-  {
-    return std::make_unique<PublisherNode>(name, config, shared_from_this());
-  };
-  factory_.registerBuilder<PublisherNode>("Publisher", builder);
-
-  builder = [=](const std::string &name, const BT::NodeConfiguration &config)
-  {
-    return std::make_unique<SubscriberNode>(name, config, shared_from_this());
-  };
-  factory_.registerBuilder<SubscriberNode>("Subscriber", builder);
-
-  // GoToDestination
-  builder = [=](const std::string &name, const BT::NodeConfiguration &config)
-  {
-    return std::make_unique<GoToDestination>(name, config, shared_from_this());
-  };
-  factory_.registerBuilder<GoToDestination>("GoToDestination", builder);
-
-  // Authenticated
-  builder = [=](const std::string &name, const BT::NodeConfiguration &config)
-  {
-    return std::make_unique<Authenticated>(name, config, shared_from_this());
-  };
-  factory_.registerBuilder<Authenticated>("Authenticated", builder);
-
-  // WaitForSample
-  builder = [=](const std::string &name, const BT::NodeConfiguration &config)
-  {
-    return std::make_unique<WaitForSample>(name, config, shared_from_this());
-  };
-  factory_.registerBuilder<WaitForSample>("WaitForSample", builder);
-
-  // WaitForCollection
-  builder = [=](const std::string &name, const BT::NodeConfiguration &config)
-  {
-    return std::make_unique<WaitForCollection>(name, config, shared_from_this());
-  };
-  factory_.registerBuilder<WaitForCollection>("WaitForCollection", builder);
+  register_nodes();
 
   // Registering nav2 nodes
   RCLCPP_INFO(get_logger(), "Registering Nav2 Plugins");
