@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4">
+  <BehaviorTree ID="main">
+    <Fallback>
+      <Sequence>
+        <Sequence name="GetSample">
+          <GoToDestination x="-3"
+                           y="4"/>
+          <Authenticated/>
+          <WaitForSample/>
+        </Sequence>
+        <GoToDestination x="2"
+                         y="2"/>
+        <Sequence name="DeliverSample">
+          <Authenticated/>
+          <WaitForCollection/>
+        </Sequence>
+      </Sequence>
+      <GoToDestination x="0"
+                       y="0"/>
+    </Fallback>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Condition ID="Authenticated"
+               editable="true"/>
+    <Action ID="GoToDestination"
+            editable="true">
+      <input_port name="x"/>
+      <input_port name="y"/>
+    </Action>
+    <Action ID="WaitForCollection"
+            editable="true"/>
+    <Action ID="WaitForSample"
+            editable="true"/>
+  </TreeNodesModel>
+
+</root>
