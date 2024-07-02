@@ -7,5 +7,6 @@ CheckBattery::CheckBattery(const std::string &name, const BT::NodeConfiguration 
 
 BT::NodeStatus CheckBattery::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "CheckBattery");
   return BT::NodeStatus::SUCCESS;
 }

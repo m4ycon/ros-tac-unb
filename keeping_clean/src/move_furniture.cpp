@@ -7,5 +7,6 @@ MoveFurniture::MoveFurniture(const std::string &name, const BT::NodeConfiguratio
 
 BT::NodeStatus MoveFurniture::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "MoveFurniture");
   return BT::NodeStatus::SUCCESS;
 }

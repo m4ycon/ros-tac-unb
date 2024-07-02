@@ -7,5 +7,6 @@ WipeFloor::WipeFloor(const std::string &name, const BT::NodeConfiguration &confi
 
 BT::NodeStatus WipeFloor::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "WipeFloor");
   return BT::NodeStatus::SUCCESS;
 }

@@ -7,5 +7,6 @@ IsRoomFree::IsRoomFree(const std::string &name, const BT::NodeConfiguration &con
 
 BT::NodeStatus IsRoomFree::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "IsRoomFree");
   return BT::NodeStatus::SUCCESS;
 }

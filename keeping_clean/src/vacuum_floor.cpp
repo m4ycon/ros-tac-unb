@@ -7,5 +7,6 @@ VacuumFloor::VacuumFloor(const std::string &name, const BT::NodeConfiguration &c
 
 BT::NodeStatus VacuumFloor::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "VacuumFloor");
   return BT::NodeStatus::SUCCESS;
 }

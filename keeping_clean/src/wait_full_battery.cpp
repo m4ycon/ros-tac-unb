@@ -7,5 +7,6 @@ WaitFullBattery::WaitFullBattery(const std::string &name, const BT::NodeConfigur
 
 BT::NodeStatus WaitFullBattery::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "WaitFullBattery");
   return BT::NodeStatus::SUCCESS;
 }

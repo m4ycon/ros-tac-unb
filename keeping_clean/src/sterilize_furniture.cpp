@@ -7,5 +7,6 @@ SterilizeFurniture::SterilizeFurniture(const std::string &name, const BT::NodeCo
 
 BT::NodeStatus SterilizeFurniture::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "SterilizeFurniture");
   return BT::NodeStatus::SUCCESS;
 }

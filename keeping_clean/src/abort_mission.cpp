@@ -7,5 +7,6 @@ AbortMission::AbortMission(const std::string &name, const BT::NodeConfiguration 
 
 BT::NodeStatus AbortMission::tick()
 {
+  RCLCPP_INFO(node_ptr_->get_logger(), "AbortMission");
   return BT::NodeStatus::SUCCESS;
 }
