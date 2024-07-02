@@ -1,0 +1,721 @@
+{
+  "actors": [
+    {
+      "id": "b204b4be-5286-49e8-99ed-c4f0e4199246",
+      "text": "M1: Keeping Clean",
+      "type": "istar.Actor",
+      "x": 154,
+      "y": 60,
+      "customProperties": {
+        "Description": ""
+      },
+      "nodes": [
+        {
+          "id": "32b08e24-0c51-4a89-aa3b-76c0286aa454",
+          "text": "AT9: ChangeCovers",
+          "type": "istar.Task",
+          "x": 1167,
+          "y": 1048,
+          "customProperties": {
+            "Description": "",
+            "Location": "current_room"
+          }
+        },
+        {
+          "id": "d5c22b85-8e8d-4528-ab81-cb7d87ae5235",
+          "text": "G1: Keep Clean [FALLBACK(G2,G3)]",
+          "type": "istar.Goal",
+          "x": 1033,
+          "y": 152,
+          "customProperties": {
+            "Description": "g1"
+          }
+        },
+        {
+          "id": "a80a508f-4807-4127-994c-c4bbb6172e4f",
+          "text": "G8: RoomCleaningSequence [G10;AT8;G11]",
+          "type": "istar.Goal",
+          "x": 1336,
+          "y": 601,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Achieve",
+            "Controls": "current_room: Room",
+            "Monitors": "receivedRoom",
+            "AchieveCondition": ""
+          }
+        },
+        {
+          "id": "afcb775c-5aa7-494f-9821-c9b46ccea7a2",
+          "text": "AT11: VacuumFloor",
+          "type": "istar.Task",
+          "x": 1470,
+          "y": 1059,
+          "customProperties": {
+            "Description": "",
+            "Location": "current_room"
+          }
+        },
+        {
+          "id": "3c6a2218-ca64-42cb-bc4e-8ed283d522af",
+          "text": "AT13: WipeFloor",
+          "type": "istar.Task",
+          "x": 1733,
+          "y": 1064,
+          "customProperties": {
+            "Description": "",
+            "Location": "current_room"
+          }
+        },
+        {
+          "id": "591fec8b-022d-40c9-b997-fcc560df7054",
+          "text": "AT15: SterilizeRoom",
+          "type": "istar.Task",
+          "x": 2054,
+          "y": 1064,
+          "customProperties": {
+            "Description": "",
+            "Location": "current_room"
+          }
+        },
+        {
+          "id": "88a8498a-258a-492d-9f7b-c8c1d99c4ab9",
+          "text": "G11: Change The Covers [FALLBACK(AT9,AT10)]",
+          "type": "istar.Goal",
+          "x": 1230,
+          "y": 925,
+          "customProperties": {
+            "Description": "",
+            "Monitors": "current_room"
+          }
+        },
+        {
+          "id": "e7fed08d-7084-4276-9e32-a56d1fa23c06",
+          "text": "G12: Vacuum The Floor [FALLBACK(AT11,AT12)]",
+          "type": "istar.Goal",
+          "x": 1509,
+          "y": 932,
+          "customProperties": {
+            "Description": "",
+            "Monitors": "current_room"
+          }
+        },
+        {
+          "id": "ecc2ada6-c537-4496-976f-474e0a7b00da",
+          "text": "G13: Wipe The Floor [FALLBACK(AT13,AT14)]",
+          "type": "istar.Goal",
+          "x": 1775,
+          "y": 927,
+          "customProperties": {
+            "Description": "",
+            "Monitors": "current_room"
+          }
+        },
+        {
+          "id": "0cb1aff1-07ab-40a1-8692-d937cd77368a",
+          "text": "G14: Sterilize The Room [FALLBACK(AT15,AT16)]",
+          "type": "istar.Goal",
+          "x": 2113,
+          "y": 927,
+          "customProperties": {
+            "Description": "",
+            "Monitors": "current_room"
+          }
+        },
+        {
+          "id": "65c4c58e-842b-41f3-936e-0c75c666b9b6",
+          "text": "G10: Clean Current Room [G11;G12;G13;G14]",
+          "type": "istar.Goal",
+          "x": 1649,
+          "y": 745,
+          "customProperties": {
+            "Description": "",
+            "CreationCondition": "assertion condition \"not current_room.occupied\"",
+            "Group": "False"
+          }
+        },
+        {
+          "id": "4a0c1e50-279d-4ff9-be06-9e1b8696f8f6",
+          "text": "AT10: SendMessageToManager",
+          "type": "istar.Task",
+          "x": 1319,
+          "y": 1049,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "5b67b70f-5934-4f0a-a5fb-a2837fb04b74",
+          "text": "AT8: EnterRoom",
+          "type": "istar.Task",
+          "x": 1420,
+          "y": 742,
+          "customProperties": {
+            "Description": "",
+            "Location": "current_room"
+          }
+        },
+        {
+          "id": "f440dcf9-39d0-407d-a0af-1b3031bde1d1",
+          "text": "AT12: SendMessageToManager",
+          "type": "istar.Task",
+          "x": 1602,
+          "y": 1051,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "adfeb084-cd4f-46ed-8771-2af0118a0c9c",
+          "text": "AT14: SendMessageToManager",
+          "type": "istar.Task",
+          "x": 1910,
+          "y": 1059,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "51a179ed-63c2-4cf9-8d4b-49343a10afd8",
+          "text": "AT16: SendMessageToManager",
+          "type": "istar.Task",
+          "x": 2267,
+          "y": 1062,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "1566762a-4bdb-4a96-8345-05cda0463c2a",
+          "text": "G9: IsRoomFree",
+          "type": "istar.Goal",
+          "x": 1286,
+          "y": 741,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "24bdbe21-4abb-437f-9563-8c2b3925bbf5",
+          "text": "G2: Checking Sequence [G3#G4#G6#G8]",
+          "type": "istar.Goal",
+          "x": 666,
+          "y": 299,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "e92baa86-ee67-4c32-8a01-bf739030194f",
+          "text": "G4: Check Battery [FALLBACK(AT1,G5)]",
+          "type": "istar.Goal",
+          "x": 404,
+          "y": 576,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "58dfda3c-72ea-4606-b8b8-b4316a589be3",
+          "text": "AT1: CheckBattery",
+          "type": "istar.Task",
+          "x": 298,
+          "y": 729,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "32c4714f-bdda-4329-9fbd-047b941bf879",
+          "text": "AT4: GoBackToRoom",
+          "type": "istar.Task",
+          "x": 602,
+          "y": 887,
+          "customProperties": {
+            "Description": "",
+            "Params": "current_room"
+          }
+        },
+        {
+          "id": "d5d6ab7c-d5c9-4a75-bd51-94bb2e4875c1",
+          "text": "AT2: GoToRechargeStation",
+          "type": "istar.Task",
+          "x": 292,
+          "y": 880,
+          "customProperties": {
+            "Description": "",
+            "Location": "equipment_room"
+          }
+        },
+        {
+          "id": "c3519ece-b860-433f-a05c-4c687492e9f2",
+          "text": "AT3: WaitFullBattery",
+          "type": "istar.Task",
+          "x": 459,
+          "y": 885,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "3fd33916-f0ba-4fb2-af15-4ac3fc81a9ca",
+          "text": "G6: Check Equipment [FALLBACK(AT5,G7)]",
+          "type": "istar.Goal",
+          "x": 823,
+          "y": 591,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "838abed7-39d9-42fd-a9f9-47a2ea86feb3",
+          "text": "AT5: CheckEquipments",
+          "type": "istar.Task",
+          "x": 722,
+          "y": 723,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "a56788ba-87b0-4083-8e10-aa879edfc554",
+          "text": "AT6: GoToStorage",
+          "type": "istar.Task",
+          "x": 883,
+          "y": 883,
+          "customProperties": {
+            "Description": "",
+            "location": "equipment_room"
+          }
+        },
+        {
+          "id": "1f04bfaa-10cf-49be-bb19-941f58ed64b4",
+          "text": "G15: Cancel Mission [AT16;AT17]",
+          "type": "istar.Goal",
+          "x": 1252,
+          "y": 259,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "d77cb4f9-96c9-4b29-b156-8f1622da573d",
+          "text": "AT16: SendMessageToManager",
+          "type": "istar.Task",
+          "x": 1220,
+          "y": 377,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "3a51491e-2c2d-4f31-910b-ca0b35542eb0",
+          "text": "AT17: AbortMission",
+          "type": "istar.Task",
+          "x": 1416,
+          "y": 388,
+          "customProperties": {
+            "Description": ""
+          }
+        },
+        {
+          "id": "d76186f5-c8e4-45a9-9de6-bd578a98f08c",
+          "text": "G5: Recharge Robot [AT2;AT3;AT4]",
+          "type": "istar.Goal",
+          "x": 498,
+          "y": 719,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Query",
+            "Controls": "recharge_room: Room",
+            "Monitors": "recharge_room, current_room",
+            "QueriedProperty": "world_db->select(r:Room | r.name = \"RechargeRoom\")"
+          }
+        },
+        {
+          "id": "5ede8ee4-cb4d-4df8-85b9-4bb3725b5f57",
+          "text": "G7: Get Equipment [AT6;AT7]",
+          "type": "istar.Goal",
+          "x": 951,
+          "y": 729,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Query",
+            "Controls": "equipment_room : Room",
+            "Monitors": "equipment_room, current_room",
+            "QueriedProperty": "world_db->select(r:Room | r.name = \"EquipmentRoom\")"
+          }
+        },
+        {
+          "id": "178a623b-e3af-44c5-a622-78658dd0fc3f",
+          "text": "G3: TimeToComplete",
+          "type": "istar.Goal",
+          "x": 192,
+          "y": 583,
+          "customProperties": {
+            "Description": "",
+            "GoalType": "Perform",
+            "QueriedProperty": "",
+            "monitors": "ttc"
+          }
+        },
+        {
+          "id": "ce8e5f43-2c4f-4693-bb46-fc4bbbd6ae44",
+          "text": "AT7: GoBackToRoom",
+          "type": "istar.Task",
+          "x": 1042,
+          "y": 883,
+          "customProperties": {
+            "Description": "",
+            "Params": "current_room"
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [],
+  "links": [
+    {
+      "id": "3925d2e3-ed4d-450e-b310-41cc071d6775",
+      "type": "istar.AndRefinementLink",
+      "source": "88a8498a-258a-492d-9f7b-c8c1d99c4ab9",
+      "target": "65c4c58e-842b-41f3-936e-0c75c666b9b6"
+    },
+    {
+      "id": "bacf47bf-b8cc-4a67-940f-e70a9c846ad0",
+      "type": "istar.AndRefinementLink",
+      "source": "e7fed08d-7084-4276-9e32-a56d1fa23c06",
+      "target": "65c4c58e-842b-41f3-936e-0c75c666b9b6"
+    },
+    {
+      "id": "2499b431-d583-4d12-bf26-44c989c640a2",
+      "type": "istar.AndRefinementLink",
+      "source": "ecc2ada6-c537-4496-976f-474e0a7b00da",
+      "target": "65c4c58e-842b-41f3-936e-0c75c666b9b6"
+    },
+    {
+      "id": "4f98131d-6ebb-4e5a-8302-c36cf621de99",
+      "type": "istar.AndRefinementLink",
+      "source": "0cb1aff1-07ab-40a1-8692-d937cd77368a",
+      "target": "65c4c58e-842b-41f3-936e-0c75c666b9b6"
+    },
+    {
+      "id": "27cfe400-8040-4d39-bb8c-638d1ee98f19",
+      "type": "istar.OrRefinementLink",
+      "source": "32b08e24-0c51-4a89-aa3b-76c0286aa454",
+      "target": "88a8498a-258a-492d-9f7b-c8c1d99c4ab9"
+    },
+    {
+      "id": "d80f6811-e293-4e4b-92b9-5bcf961e93ae",
+      "type": "istar.OrRefinementLink",
+      "source": "4a0c1e50-279d-4ff9-be06-9e1b8696f8f6",
+      "target": "88a8498a-258a-492d-9f7b-c8c1d99c4ab9"
+    },
+    {
+      "id": "824f462d-4a9b-4c31-a3e6-e6d22b064e54",
+      "type": "istar.OrRefinementLink",
+      "source": "afcb775c-5aa7-494f-9821-c9b46ccea7a2",
+      "target": "e7fed08d-7084-4276-9e32-a56d1fa23c06"
+    },
+    {
+      "id": "2822dad0-acbf-4375-bc74-370743c64084",
+      "type": "istar.OrRefinementLink",
+      "source": "f440dcf9-39d0-407d-a0af-1b3031bde1d1",
+      "target": "e7fed08d-7084-4276-9e32-a56d1fa23c06"
+    },
+    {
+      "id": "fb273af8-98c2-40c9-b501-6b2e00298652",
+      "type": "istar.OrRefinementLink",
+      "source": "3c6a2218-ca64-42cb-bc4e-8ed283d522af",
+      "target": "ecc2ada6-c537-4496-976f-474e0a7b00da"
+    },
+    {
+      "id": "3c47d755-c14c-4742-9e74-ca6a529af1b2",
+      "type": "istar.OrRefinementLink",
+      "source": "adfeb084-cd4f-46ed-8771-2af0118a0c9c",
+      "target": "ecc2ada6-c537-4496-976f-474e0a7b00da"
+    },
+    {
+      "id": "daf233c8-ad6b-4e08-9b4a-ead3ef3fb832",
+      "type": "istar.OrRefinementLink",
+      "source": "591fec8b-022d-40c9-b997-fcc560df7054",
+      "target": "0cb1aff1-07ab-40a1-8692-d937cd77368a"
+    },
+    {
+      "id": "fc2f494e-75b7-4537-942c-a555643329a2",
+      "type": "istar.OrRefinementLink",
+      "source": "51a179ed-63c2-4cf9-8d4b-49343a10afd8",
+      "target": "0cb1aff1-07ab-40a1-8692-d937cd77368a"
+    },
+    {
+      "id": "674cea18-083d-4e81-80f8-dff9c04ee8c0",
+      "type": "istar.AndRefinementLink",
+      "source": "1566762a-4bdb-4a96-8345-05cda0463c2a",
+      "target": "a80a508f-4807-4127-994c-c4bbb6172e4f"
+    },
+    {
+      "id": "e2a23fcd-c61c-4c0f-85b8-9f83b42aa3ec",
+      "type": "istar.AndRefinementLink",
+      "source": "65c4c58e-842b-41f3-936e-0c75c666b9b6",
+      "target": "a80a508f-4807-4127-994c-c4bbb6172e4f"
+    },
+    {
+      "id": "6931b02a-0696-4ddb-9d0a-fc0d44fbcc94",
+      "type": "istar.AndRefinementLink",
+      "source": "5b67b70f-5934-4f0a-a5fb-a2837fb04b74",
+      "target": "a80a508f-4807-4127-994c-c4bbb6172e4f"
+    },
+    {
+      "id": "bf527938-5e6d-47b7-b846-70189b4c3c50",
+      "type": "istar.AndRefinementLink",
+      "source": "178a623b-e3af-44c5-a622-78658dd0fc3f",
+      "target": "24bdbe21-4abb-437f-9563-8c2b3925bbf5"
+    },
+    {
+      "id": "50e30938-a815-4937-a17d-decbdbba1eb0",
+      "type": "istar.AndRefinementLink",
+      "source": "e92baa86-ee67-4c32-8a01-bf739030194f",
+      "target": "24bdbe21-4abb-437f-9563-8c2b3925bbf5"
+    },
+    {
+      "id": "69f83ed8-cebf-4194-b11e-7e21cefa5db2",
+      "type": "istar.AndRefinementLink",
+      "source": "3fd33916-f0ba-4fb2-af15-4ac3fc81a9ca",
+      "target": "24bdbe21-4abb-437f-9563-8c2b3925bbf5"
+    },
+    {
+      "id": "a84144e6-8efb-4c2b-955e-3da70aeb2dc1",
+      "type": "istar.AndRefinementLink",
+      "source": "a80a508f-4807-4127-994c-c4bbb6172e4f",
+      "target": "24bdbe21-4abb-437f-9563-8c2b3925bbf5"
+    },
+    {
+      "id": "30cd12b2-84e9-48a1-be1b-c847f6e61855",
+      "type": "istar.OrRefinementLink",
+      "source": "24bdbe21-4abb-437f-9563-8c2b3925bbf5",
+      "target": "d5c22b85-8e8d-4528-ab81-cb7d87ae5235"
+    },
+    {
+      "id": "516a698c-24c9-4d3e-a182-d0c3c2296b8c",
+      "type": "istar.OrRefinementLink",
+      "source": "1f04bfaa-10cf-49be-bb19-941f58ed64b4",
+      "target": "d5c22b85-8e8d-4528-ab81-cb7d87ae5235"
+    },
+    {
+      "id": "479e1267-d103-4e64-a109-83684bfa75b6",
+      "type": "istar.AndRefinementLink",
+      "source": "d77cb4f9-96c9-4b29-b156-8f1622da573d",
+      "target": "1f04bfaa-10cf-49be-bb19-941f58ed64b4"
+    },
+    {
+      "id": "31285192-b4a6-4bba-a997-e36129800628",
+      "type": "istar.AndRefinementLink",
+      "source": "3a51491e-2c2d-4f31-910b-ca0b35542eb0",
+      "target": "1f04bfaa-10cf-49be-bb19-941f58ed64b4"
+    },
+    {
+      "id": "7089537a-ad3b-4ad0-b32a-c98f78dba44c",
+      "type": "istar.OrRefinementLink",
+      "source": "58dfda3c-72ea-4606-b8b8-b4316a589be3",
+      "target": "e92baa86-ee67-4c32-8a01-bf739030194f"
+    },
+    {
+      "id": "93acf786-b14b-4fc9-89da-5acb45cd7c35",
+      "type": "istar.OrRefinementLink",
+      "source": "d76186f5-c8e4-45a9-9de6-bd578a98f08c",
+      "target": "e92baa86-ee67-4c32-8a01-bf739030194f"
+    },
+    {
+      "id": "6269155a-94ce-47d9-987a-1b2fb93b99ff",
+      "type": "istar.AndRefinementLink",
+      "source": "d5d6ab7c-d5c9-4a75-bd51-94bb2e4875c1",
+      "target": "d76186f5-c8e4-45a9-9de6-bd578a98f08c"
+    },
+    {
+      "id": "03a65cce-e31a-4109-8c2f-f52b66ad72ab",
+      "type": "istar.AndRefinementLink",
+      "source": "c3519ece-b860-433f-a05c-4c687492e9f2",
+      "target": "d76186f5-c8e4-45a9-9de6-bd578a98f08c"
+    },
+    {
+      "id": "de83dc33-81b1-4521-8602-63d6e853f899",
+      "type": "istar.AndRefinementLink",
+      "source": "32c4714f-bdda-4329-9fbd-047b941bf879",
+      "target": "d76186f5-c8e4-45a9-9de6-bd578a98f08c"
+    },
+    {
+      "id": "9765d7de-a361-4867-8f67-d85b316f52b7",
+      "type": "istar.OrRefinementLink",
+      "source": "838abed7-39d9-42fd-a9f9-47a2ea86feb3",
+      "target": "3fd33916-f0ba-4fb2-af15-4ac3fc81a9ca"
+    },
+    {
+      "id": "9826593c-eff0-47d8-a556-8e5118a4ba54",
+      "type": "istar.OrRefinementLink",
+      "source": "5ede8ee4-cb4d-4df8-85b9-4bb3725b5f57",
+      "target": "3fd33916-f0ba-4fb2-af15-4ac3fc81a9ca"
+    },
+    {
+      "id": "6d8118ea-fa84-4363-9c6d-f2810782f189",
+      "type": "istar.AndRefinementLink",
+      "source": "a56788ba-87b0-4083-8e10-aa879edfc554",
+      "target": "5ede8ee4-cb4d-4df8-85b9-4bb3725b5f57"
+    },
+    {
+      "id": "81231cfe-7bda-4884-935c-8473a70af0ac",
+      "type": "istar.AndRefinementLink",
+      "source": "ce8e5f43-2c4f-4693-bb46-fc4bbbd6ae44",
+      "target": "5ede8ee4-cb4d-4df8-85b9-4bb3725b5f57"
+    }
+  ],
+  "display": {
+    "32b08e24-0c51-4a89-aa3b-76c0286aa454": {
+      "width": 104.8125,
+      "height": 38.453125
+    },
+    "d5c22b85-8e8d-4528-ab81-cb7d87ae5235": {
+      "width": 149.875,
+      "height": 54.41015625
+    },
+    "a80a508f-4807-4127-994c-c4bbb6172e4f": {
+      "width": 124.875,
+      "height": 53.91015625
+    },
+    "88a8498a-258a-492d-9f7b-c8c1d99c4ab9": {
+      "width": 155.5,
+      "height": 47.84375
+    },
+    "e7fed08d-7084-4276-9e32-a56d1fa23c06": {
+      "width": 161.5,
+      "height": 42.84375
+    },
+    "ecc2ada6-c537-4496-976f-474e0a7b00da": {
+      "width": 164.5,
+      "height": 56.453125
+    },
+    "0cb1aff1-07ab-40a1-8692-d937cd77368a": {
+      "width": 165.5,
+      "height": 73.84375
+    },
+    "65c4c58e-842b-41f3-936e-0c75c666b9b6": {
+      "width": 156.8125,
+      "height": 73.453125
+    },
+    "4a0c1e50-279d-4ff9-be06-9e1b8696f8f6": {
+      "width": 117.5,
+      "height": 49.84375
+    },
+    "5b67b70f-5934-4f0a-a5fb-a2837fb04b74": {
+      "width": 93.8125,
+      "height": 47.453125
+    },
+    "f440dcf9-39d0-407d-a0af-1b3031bde1d1": {
+      "width": 115.5,
+      "height": 49.84375
+    },
+    "adfeb084-cd4f-46ed-8771-2af0118a0c9c": {
+      "width": 114.5,
+      "height": 45.84375
+    },
+    "51a179ed-63c2-4cf9-8d4b-49343a10afd8": {
+      "width": 116.5,
+      "height": 42.84375
+    },
+    "1566762a-4bdb-4a96-8345-05cda0463c2a": {
+      "width": 96.5,
+      "height": 44.84375
+    },
+    "24bdbe21-4abb-437f-9563-8c2b3925bbf5": {
+      "width": 115.875,
+      "height": 56.41015625
+    },
+    "e92baa86-ee67-4c32-8a01-bf739030194f": {
+      "width": 147.5,
+      "height": 61.84375
+    },
+    "58dfda3c-72ea-4606-b8b8-b4316a589be3": {
+      "width": 110.875,
+      "height": 49.91015625
+    },
+    "32c4714f-bdda-4329-9fbd-047b941bf879": {
+      "width": 121.875,
+      "height": 42.91015625
+    },
+    "d5d6ab7c-d5c9-4a75-bd51-94bb2e4875c1": {
+      "width": 119.875,
+      "height": 52.91015625
+    },
+    "c3519ece-b860-433f-a05c-4c687492e9f2": {
+      "width": 111.875,
+      "height": 49.91015625
+    },
+    "3fd33916-f0ba-4fb2-af15-4ac3fc81a9ca": {
+      "width": 139.5,
+      "height": 54.453125
+    },
+    "838abed7-39d9-42fd-a9f9-47a2ea86feb3": {
+      "width": 115.375,
+      "height": 56.91015625
+    },
+    "a56788ba-87b0-4083-8e10-aa879edfc554": {
+      "width": 107.875,
+      "height": 45.91015625
+    },
+    "1f04bfaa-10cf-49be-bb19-941f58ed64b4": {
+      "width": 149.875,
+      "height": 57.66015625
+    },
+    "d77cb4f9-96c9-4b29-b156-8f1622da573d": {
+      "width": 143.375,
+      "height": 52.66015625
+    },
+    "3a51491e-2c2d-4f31-910b-ca0b35542eb0": {
+      "width": 133.875,
+      "height": 56.66015625
+    },
+    "d76186f5-c8e4-45a9-9de6-bd578a98f08c": {
+      "width": 109.5,
+      "height": 54.34375
+    },
+    "5ede8ee4-cb4d-4df8-85b9-4bb3725b5f57": {
+      "width": 137.5,
+      "height": 57.84375
+    },
+    "178a623b-e3af-44c5-a622-78658dd0fc3f": {
+      "width": 105.875,
+      "height": 42.41015625
+    },
+    "ce8e5f43-2c4f-4693-bb46-fc4bbbd6ae44": {
+      "width": 113.5,
+      "height": 50.84375
+    },
+    "27cfe400-8040-4d39-bb8c-638d1ee98f19": {
+      "vertices": [
+        {
+          "x": 1269,
+          "y": 999
+        }
+      ]
+    },
+    "516a698c-24c9-4d3e-a182-d0c3c2296b8c": {
+      "vertices": [
+        {
+          "x": 1186,
+          "y": 218
+        }
+      ]
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Tue, 02 Jul 2024 03:23:39 GMT",
+  "diagram": {
+    "width": 7798,
+    "height": 2593,
+    "customProperties": {
+      "Description": "",
+      "CreationCondition": ""
+    }
+  }
+}
