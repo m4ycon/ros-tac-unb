@@ -7,22 +7,27 @@
         <TimeToComplete ttc="{ttc}"/>
         <Fallback>
           <CheckBattery/>
-          <GoToDestination name="Go to Recharge Station"
-                           x="0"
-                           y="0"/>
-          <WaitFullBattery/>
-          <GoToDestination name="Go Back to Room"
-                           x="5"
-                           y="1"/>
+          <Sequence>
+            <GoToDestination name="Go to Recharge Station"
+                             x="0"
+                             y="0"/>
+            <WaitFullBattery/>
+            <GoToDestination name="Go Back to Room"
+                             x="5"
+                             y="1"/>
+          </Sequence>
         </Fallback>
         <Fallback>
-          <CheckEquipments/>
-          <GoToDestination name="Go To Storage"
-                           x="7"
-                           y="1"/>
-          <GoToDestination name="Go Back to Room"
-                           x="5"
-                           y="1"/>
+          <CheckEquipments has_equipments="{has_equipments}"/>
+          <Sequence>
+            <GoToDestination name="Go To Storage"
+                             x="7"
+                             y="1"/>
+            <PickEquipments has_equipments="{has_equipments}"/>
+            <GoToDestination name="Go Back to Room"
+                             x="5"
+                             y="1"/>
+          </Sequence>
         </Fallback>
         <Sequence>
           <IsRoomFree/>
@@ -66,7 +71,9 @@
     <Condition ID="CheckBattery"
                editable="true"/>
     <Condition ID="CheckEquipments"
-               editable="true"/>
+               editable="true">
+      <input_port name="has_equipments"/>
+    </Condition>
     <Action ID="GoToDestination"
             editable="true">
       <input_port name="x"/>
@@ -76,6 +83,10 @@
                editable="true"/>
     <Action ID="MoveFurniture"
             editable="true"/>
+    <Action ID="PickEquipments"
+            editable="true">
+      <output_port name="has_equipments"/>
+    </Action>
     <Action ID="SendMessageToManager"
             editable="true">
       <input_port name="message"/>
