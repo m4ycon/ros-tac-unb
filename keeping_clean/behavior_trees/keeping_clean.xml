@@ -2,66 +2,78 @@
 <root BTCPP_format="4"
       main_tree_to_execute="Untitled">
   <BehaviorTree ID="Untitled">
-    <Fallback>
-      <ReactiveSequence>
-        <TimeToComplete ttc="{ttc}"/>
-        <Fallback>
-          <CheckBattery/>
-          <Sequence>
-            <GoToDestination name="Go to Recharge Station"
-                             x="0"
-                             y="0"/>
-            <WaitFullBattery/>
-            <GoToDestination name="Go Back to Room"
-                             x="5"
-                             y="1"/>
-          </Sequence>
-        </Fallback>
-        <Fallback>
-          <CheckEquipments has_equipments="{has_equipments}"/>
-          <Sequence>
-            <GoToDestination name="Go To Storage"
-                             x="7"
-                             y="1"/>
-            <PickEquipments has_equipments="{has_equipments}"/>
-            <GoToDestination name="Go Back to Room"
-                             x="5"
-                             y="1"/>
-          </Sequence>
-        </Fallback>
-        <Sequence>
-          <IsRoomFree/>
-          <GoToDestination name="Go to Room"
-                           x="5"
-                           y="1"/>
-          <Sequence>
-            <Fallback>
-              <MoveFurniture/>
-              <SendMessageToManager message="fail: move furniture"/>
-            </Fallback>
-            <Fallback>
-              <VacuumFloor/>
-              <SendMessageToManager message="fail: Vacuum floor"/>
-            </Fallback>
-            <Fallback>
-              <WipeFloor/>
-              <SendMessageToManager message="fail: wipe floor"/>
-            </Fallback>
-            <Fallback>
-              <SterilizeFurniture/>
-              <SendMessageToManager message="fail: Sterilize furniture"/>
-            </Fallback>
-          </Sequence>
-          <GoToDestination name="Go To Recharge Station"
-                           x="0"
-                           y="0"/>
-        </Sequence>
-      </ReactiveSequence>
+    <Sequence>
       <Sequence>
-        <SendMessageToManager message="fail: Mission aborted"/>
-        <AbortMission/>
+        <SetBlackboard output_key="has_equipments" value="True" />
+        <SetBlackboard output_key="is_room_free" value="True" />
+        <SetBlackboard output_key="recharge_x" value="0.0" />
+        <SetBlackboard output_key="recharge_y" value="0.0" />
+        <SetBlackboard output_key="room_x" value="0.0" />
+        <SetBlackboard output_key="room_y" value="3.0" />
+        <SetBlackboard output_key="storage_x" value="-2.0" />
+        <SetBlackboard output_key="storage_y" value="2.0" />
       </Sequence>
-    </Fallback>
+      <Fallback>
+        <ReactiveSequence>
+          <TimeToComplete ttc="{ttc}"/>
+          <Fallback>
+            <CheckBattery/>
+            <Sequence>
+              <GoToDestination name="Go to Recharge Station"
+                               x="{recharge_x}"
+                               y="{recharge_y}"/>
+              <WaitFullBattery/>
+              <GoToDestination name="Go Back to Room"
+                               x="{room_x}"
+                               y="{room_y}"/>
+            </Sequence>
+          </Fallback>
+          <Fallback>
+            <CheckEquipments has_equipments="{has_equipments}"/>
+            <Sequence>
+              <GoToDestination name="Go To Storage"
+                               x="{storage_x}"
+                               y="{storage_y}"/>
+              <PickEquipments has_equipments="{has_equipments}"/>
+              <GoToDestination name="Go Back to Room"
+                               x="{room_x}"
+                               y="{room_y}"/>
+            </Sequence>
+          </Fallback>
+          <Sequence>
+            <IsRoomFree is_room_free="{is_room_free}"/>
+            <GoToDestination name="Go to Room"
+                             x="{room_x}"
+                             y="{room_y}"/>
+            <Sequence>
+              <Fallback>
+                <MoveFurniture/>
+                <SendMessageToManager message="fail: move furniture"/>
+              </Fallback>
+              <Fallback>
+                <VacuumFloor/>
+                <SendMessageToManager message="fail: Vacuum floor"/>
+              </Fallback>
+              <Fallback>
+                <WipeFloor/>
+                <SendMessageToManager message="fail: wipe floor"/>
+              </Fallback>
+              <Fallback>
+                <SterilizeFurniture/>
+                <SendMessageToManager message="fail: Sterilize furniture"/>
+              </Fallback>
+            </Sequence>
+            <GoToDestination name="Go To Recharge Station"
+                             x="{recharge_x}"
+                             y="{recharge_y}"/>
+          </Sequence>
+        </ReactiveSequence>
+        <Sequence>
+          <SendMessageToManager message="fail: Mission aborted"/>
+          <AbortMission/>
+        </Sequence>
+      </Fallback>
+    </Sequence>
   </BehaviorTree>
 
   <!-- Description of Node Models (used by Groot) -->
@@ -80,7 +92,9 @@
       <input_port name="y"/>
     </Action>
     <Condition ID="IsRoomFree"
-               editable="true"/>
+               editable="true">
+      <input_port name="is_room_free"/>
+    </Condition>
     <Action ID="MoveFurniture"
             editable="true"/>
     <Action ID="PickEquipments"

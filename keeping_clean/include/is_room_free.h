@@ -12,11 +12,15 @@ class IsRoomFree : public BT::ConditionNode
 {
 public:
   IsRoomFree(const std::string &name,
-                  const BT::NodeConfiguration &config,
-                  rclcpp::Node::SharedPtr node_ptr);
+             const BT::NodeConfiguration &config,
+             rclcpp::Node::SharedPtr node_ptr);
 
-  // Method overrides
   BT::NodeStatus tick() override;
+
+  static BT::PortsList providedPorts()
+  {
+    return BT::PortsList{BT::InputPort<bool>("is_room_free")};
+  }
 
 private:
   rclcpp::Node::SharedPtr node_ptr_;

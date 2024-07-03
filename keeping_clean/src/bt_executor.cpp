@@ -20,8 +20,7 @@ BTExecutor::BTExecutor(const std::string &node_name) : rclcpp::Node(node_name)
 {
   this->declare_parameter("bt", rclcpp::PARAMETER_STRING);
   this->declare_parameter("tick_rate_ms", rclcpp::PARAMETER_INTEGER);
-  this->declare_parameter("has_equipments", rclcpp::PARAMETER_BOOL);
-
+  
   RCLCPP_INFO(get_logger(), "Started BT Executor");
 }
 

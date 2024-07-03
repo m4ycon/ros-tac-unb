@@ -8,5 +8,14 @@ IsRoomFree::IsRoomFree(const std::string &name, const BT::NodeConfiguration &con
 BT::NodeStatus IsRoomFree::tick()
 {
   RCLCPP_INFO(node_ptr_->get_logger(), "IsRoomFree");
+
+  auto is_room_free = getInput<bool>("is_room_free");
+  if (!is_room_free.value())
+  {
+    RCLCPP_INFO(node_ptr_->get_logger(), "Room is not free");
+    return BT::NodeStatus::FAILURE;
+  }
+
+  RCLCPP_INFO(node_ptr_->get_logger(), "Room is free");
   return BT::NodeStatus::SUCCESS;
 }
