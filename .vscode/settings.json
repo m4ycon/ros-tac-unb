@@ -77,5 +77,6 @@
     "cfenv": "cpp",
     "cinttypes": "cpp",
     "variant": "cpp"
-  }
+  },
+  "cmake.configureOnOpen": false
 }

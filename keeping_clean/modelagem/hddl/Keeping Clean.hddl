@@ -1,35 +1,88 @@
-(define (domain hospital)
-    (:types room - object)
-    (:predicates
+(:define (domain hospital)
+
+    (:types 
+        room - object
+        battery - object
+        equipment - object
+    )
+
+    (:predicates 
         (equipmentok ?r - robot)
         (occupied ?rm - room)
     )
-    (:functions
-        (staphylococcus ?rm - room)
-    )
-    (:capabilities organization equipmentsearch sndmessage)
 
-    (:task AbortMission :parameters (?r - robot ?rm - room))
-    (:method abort-mission
-       :parameters (?r - robot ?rm - room)
-       :task (AbortMission ?r ?rm)
-       :precondition (and
-                  (occupied ?rm)
-       )
-       :subtasks (and
- 	        (msg-to-mgr ?r ?rm)
-	    )
+    (:functions
+        (recharge ?batt - battery)
+        (staphylococcus ?rm - room)
+        (batterybelow ?batt - battery)
     )
-    (:action msg-to-mgr
-        :parameters (?r - robot ?rm - room)
-        :required-capabilities (sndmessage)
-        :effect ()
+
+    (:capabilities organization equipmentsearch sndmessage recharger equipmentcheck)
+
+    (:task CheckBattery :parameters (?r - robot ?batt - battery))
+    (:method check-battery
+        :parameters (?r - robot ?batt - battery) 
+        :task (CheckBattery ?r ?batt)
+        :precondition()
+        :subtasks (and 
+            (check-battery ?r ?batt)
+        )
     )
-     
-    (:task FindEquipment :parameters (?r - robot ?eqrm - room))
+    (:action check-battery 
+        :parameters (?r - robot ?batt - battery)
+        :required-capabilities (organization)
+        :effect( and
+            ( > (batterybelow ?r ?batt) 15)
+        )
+    )
+
+    (:task RechargeAndGoBack :parameters (?r - robot ?recrm - room ?previousrm - room ?batt - battery))
+    (:method recharge-and-go-back
+        :parameters (?r - robot ?recrm - room ?previousrm - room ?batt - battery)
+        :task (RechargeAndGoBack ?r ?recrm ?previousrm ?batt)
+        :precondition ( and
+                    ( < (batterybelow ?r ?batt) 15)
+        )
+        :subtasks ( and
+            (go-to-recharge-station ?r ?recrm)
+            (wait-full-battery ?r ?batt)
+            (go-back-to-room ?r ?previousrm)
+        )
+    )
+    (:action go-to-recharge-station
+        :parameters (?r ?recrm)
+        :required-capabilities (organizatin)
+    )
+    (:action wait-full-battery 
+        :parameters (?r ?batt)
+        :required-capabilities (recharger)
+        effect ( and
+            (assign (recharge ?batt) 0)
+        )
+    )
+    (:action go-back-to-room
+        :parameters (?r ?previousrm)
+        :required-capabilities(organization)
+    )
+
+    (:task CheckEquipment :parameters (?r - robot ?eqp - equipment))
+    (:method check-equipment
+        :parameters (?r - robot ?eqp - equipment)
+        :task (CheckEquipment ?r ?eqp)
+        :precondition ()
+        :subtasks (and
+            (check-equipment ?r ?eqp)
+        )
+    )
+    (:action check-equipment
+        :parameters (?r ?eqp)
+        :required-capabilities(equipmentcheck)
+    )
+
+    (:task GetEquipment :parameters (?r - robot ?eqrm - room ?previousrm - room))
     (:method find-equipment
-        :parameters (?r - robot ?eqrm - room)
-        :task (FindEquipment ?r ?eqrm)
+        :parameters (?r - robot ?eqrm - room ?previousrm - room)
+        :task (GetEquipment ?r ?eqrm ?previousrm)
         :precondition (and
             (not (equipmentok ?r))    
         )
@@ -43,6 +96,10 @@
         :effect (and
             (equipmentok ?r)
         )
+    )
+    (:action go-back-to-room
+        :parameters (?r ?previousrm)
+        :required-capabilities(organization)
     )
 
     (:task EnterRoom :parameters (?r - robot ?rm - room))
@@ -78,6 +135,20 @@
         :required-capabilities (organization)
     )
 
+    (:task SendFailCovers :parameters (?r - robot ?rm - room))
+    (: method send-fail-covers
+        :parameters (?r - robot ?rm - room)
+        :task (SendFailCovers)
+        :precondition ()
+        :subtasks (and
+            (send-msg-fail-covers ?r ?rm)
+        )
+    )
+    (:action send-msg-fail-covers
+        :parameters (?r - robot ?rm - room)
+        :required-capabilities (sndmessage)
+    )
+
     (:task VacuumFloor :parameters (?r - robot ?rm - room))
     (:method floor-vacuum
         :parameters (?r - robot ?rm - room)
@@ -91,6 +162,20 @@
         :required-capabilities (organization)
     )
 
+    (:task SendFailVacuum:parameters (?r - robot ?rm - room))
+    (: method send-fail-vacuum
+        :parameters (?r - robot ?rm - room)
+        :task (SendFailVacuum)
+        :precondition ()
+        :subtasks (and
+            (send-msg-fail-vacuum ?r ?rm)
+        )
+    )
+    (:action send-msg-fail-vacuum
+        :parameters (?r - robot ?rm - room)
+        :required-capabilities (sndmessage)
+    )
+
     (:task WipeFloor :parameters (?r - robot ?rm - room))
     (:method floor-wiping
         :parameters (?r - robot ?rm - room)
@@ -102,6 +187,20 @@
     (:action wipe-floor
         :parameters (?r - robot ?rm - room)
         :required-capabilities (organization)
+    )
+
+    (:task SendFailWipe:parameters (?r - robot ?rm - room))
+    (: method send-fail-wipe
+        :parameters (?r - robot ?rm - room)
+        :task (SendFailWipe)
+        :precondition ()
+        :subtasks (and
+            (send-msg-fail-wipe ?r ?rm)
+        )
+    )
+    (:action send-msg-fail-wipe
+        :parameters (?r - robot ?rm - room)
+        :required-capabilities (sndmessage)
     )
 
     (:task SterilizeRoom :parameters (?r - robot ?rm - room))
@@ -119,5 +218,36 @@
             (assign (staphylococcus ?rm) 0)
         )
     )
-)
 
+    (:task SendFailSterilize:parameters (?r - robot ?rm - room))
+    (: method send-fail-sterilize
+        :parameters (?r - robot ?rm - room)
+        :task (SendFailSterilize)
+        :precondition ()
+        :subtasks (and
+            (send-msg-fail-sterilize ?r ?rm)
+        )
+    )
+    (:action send-msg-fail-sterilize
+        :parameters (?r - robot ?rm - room)
+        :required-capabilities (sndmessage)
+    )
+
+    (:task AbortMission :parameters (?r - robot ?rm - room))
+    (:method abort-mission
+       :parameters (?r - robot ?rm - room)
+       :task (AbortMission ?r ?rm)
+       :precondition (and
+                  (occupied ?rm)
+       )
+       :subtasks (and
+ 	        (msg-to-mgr ?r ?rm)
+	    )
+    )
+    (:action msg-to-mgr
+        :parameters (?r - robot ?rm - room)
+        :required-capabilities (sndmessage)
+        :effect ()
+    )
+
+)

@@ -1,0 +1,222 @@
+{
+    "world_db": {
+        "type": "file",
+        "file_type": "xml",
+        "path": "knowledge/world_knowledge.xml",
+        "xml_root": "world_db"
+    },
+
+    "output": {
+        "output_type": "file",
+        "file_path": "output/task_output.json",
+        "file_type": "json"
+    },
+
+    "location_types": ["Room"],
+
+    "type_mapping": [
+        {
+            "hddl_type": "room",
+            "ocl_type": "Room"
+        }
+    ],
+
+    "var_mapping": [
+        {
+            "task_id": "AT1",
+            "map": [
+                {
+                    "gm_var": "battery",
+                    "hddl_var": "?batt"
+                }
+            ]
+        },
+        { 
+            "task_id": "AT2",
+            "map": [
+                {
+                    "gm_var": "previousrm",
+                    "hddl_var": "?room"
+                },
+                {
+                    "gm_var": "recharge_room",
+                    "hddl_var": "?recrm"
+                },
+                {
+                    "gm_var": "battery",
+                    "hddl_var": "?batt"
+                }
+            ]
+        },
+        {
+            "task_id": "AT3",
+            "map": [
+                {
+                    "gm_var": "equipment",
+                    "hddl_var": "?eqp"
+                }
+            ]
+        },
+        {
+            "task_id": "AT4",
+            "map": [
+                {
+                    "gm_var": "equipment_room",
+                    "hddl_var": "?eqrm"
+                },
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?previousrm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT5",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT6",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT7",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT8",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT9",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT10",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT11",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT12",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT13",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        },
+        {
+            "task_id": "AT14",
+            "map": [
+                {
+                    "gm_var": "current_room",
+                    "hddl_var": "?rm"
+                }
+            ]
+        }
+    ],
+
+    "semantic_mapping": [
+        {
+            "type": "attribute",
+            "name": "occupied",
+            "relates_to": "Room",
+            "belongs_to": "world_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "occupied",
+                "arg_sorts": ["room"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "equipment_ok",
+            "relates_to": "robot",
+            "belongs_to": "world_db",
+            "mapped_type": "predicate",
+            "map": {
+                "pred": "equipmentok",
+                "arg_sorts": ["robot"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "staphylococcus",
+            "relates_to": "Room",
+            "belongs_to": "world_db",
+            "mapped_type": "function",
+            "map": {
+                "pred": "staphylococcus",
+                "arg_sorts": ["room"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "recharge",
+            "relates_to": "battery",
+            "belongs_to": "world_db",
+            "mapped_type": "function",
+            "map": {
+                "pred": "recharge",
+                "arg_sorts": ["battery"]
+            }
+        },
+        {
+            "type": "attribute",
+            "name": "battery_below",
+            "relates_to": "battery",
+            "belongs_to": "world_db",
+            "mapped_type": "function",
+            "map": {
+                "pred": "batterybelow",
+                "arg_sorts": ["battery"]
+            }
+        }
+    ]
+}

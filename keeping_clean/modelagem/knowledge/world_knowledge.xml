@@ -1,0 +1,27 @@
+<world_db>
+    <Room>
+        <name>RoomA</name>
+        <staphylococcus>3</staphylococcus>
+        <occupied>False</occupied>
+    </Room>
+    <Room>
+        <name>EquipmentRoom</name>
+        <staphylococcus>0</staphylococcus>
+        <occupied>False</occupied>
+    </Room>
+    <Room>
+        <name>RechargeRoom</name>
+        <staphylococcus>0</staphylococcus>
+        <occupied>False</occupied>
+    </Room>
+    <Battery>
+        <charge>90</charge>        
+    </Battery>
+    <TTC>
+        <status>0</status>
+    </TTC>
+    <Equipment>
+        <name>Vassoura</name>
+        <status>True</status>
+    </Equipment>
+</world_db>

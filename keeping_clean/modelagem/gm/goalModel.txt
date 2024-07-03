@@ -4,8 +4,8 @@
       "id": "b204b4be-5286-49e8-99ed-c4f0e4199246",
       "text": "M1: Keeping Clean",
       "type": "istar.Actor",
-      "x": 814,
-      "y": 101,
+      "x": 359,
+      "y": 227,
       "customProperties": {
         "Description": ""
       },
@@ -14,8 +14,8 @@
           "id": "32b08e24-0c51-4a89-aa3b-76c0286aa454",
           "text": "AT6: ChangeCovers",
           "type": "istar.Task",
-          "x": 1827,
-          "y": 1089,
+          "x": 1372,
+          "y": 1215,
           "customProperties": {
             "Description": "",
             "Location": "current_room"
@@ -25,8 +25,8 @@
           "id": "d5c22b85-8e8d-4528-ab81-cb7d87ae5235",
           "text": "G1: Keep Clean [FALLBACK(G2,G3)]",
           "type": "istar.Goal",
-          "x": 1693,
-          "y": 193,
+          "x": 1238,
+          "y": 319,
           "customProperties": {
             "Description": "g1"
           }
@@ -35,8 +35,8 @@
           "id": "a80a508f-4807-4127-994c-c4bbb6172e4f",
           "text": "G8: RoomCleaningSequence [G9;G10]",
           "type": "istar.Goal",
-          "x": 1996,
-          "y": 642,
+          "x": 1541,
+          "y": 768,
           "customProperties": {
             "Description": "",
             "GoalType": "Achieve",
@@ -49,8 +49,8 @@
           "id": "afcb775c-5aa7-494f-9821-c9b46ccea7a2",
           "text": "AT8: VacuumFloor",
           "type": "istar.Task",
-          "x": 2130,
-          "y": 1100,
+          "x": 1675,
+          "y": 1226,
           "customProperties": {
             "Description": "",
             "Location": "current_room"
@@ -60,8 +60,8 @@
           "id": "3c6a2218-ca64-42cb-bc4e-8ed283d522af",
           "text": "AT10: WipeFloor",
           "type": "istar.Task",
-          "x": 2393,
-          "y": 1105,
+          "x": 1938,
+          "y": 1231,
           "customProperties": {
             "Description": "",
             "Location": "current_room"
@@ -71,8 +71,8 @@
           "id": "591fec8b-022d-40c9-b997-fcc560df7054",
           "text": "AT12: SterilizeRoom",
           "type": "istar.Task",
-          "x": 2714,
-          "y": 1105,
+          "x": 2259,
+          "y": 1231,
           "customProperties": {
             "Description": "",
             "Location": "current_room"
@@ -82,8 +82,8 @@
           "id": "88a8498a-258a-492d-9f7b-c8c1d99c4ab9",
           "text": "G11: Change The Covers [FALLBACK(AT6,AT7)]",
           "type": "istar.Goal",
-          "x": 1890,
-          "y": 966,
+          "x": 1435,
+          "y": 1092,
           "customProperties": {
             "Description": "",
             "Monitors": "current_room"
@@ -93,8 +93,8 @@
           "id": "e7fed08d-7084-4276-9e32-a56d1fa23c06",
           "text": "G12: Vacuum The Floor [FALLBACK(AT8,AT9)]",
           "type": "istar.Goal",
-          "x": 2169,
-          "y": 973,
+          "x": 1714,
+          "y": 1099,
           "customProperties": {
             "Description": "",
             "Monitors": "current_room"
@@ -104,8 +104,8 @@
           "id": "ecc2ada6-c537-4496-976f-474e0a7b00da",
           "text": "G13: Wipe The Floor [FALLBACK(AT10,AT11)]",
           "type": "istar.Goal",
-          "x": 2435,
-          "y": 968,
+          "x": 1980,
+          "y": 1094,
           "customProperties": {
             "Description": "",
             "Monitors": "current_room"
@@ -115,8 +115,8 @@
           "id": "0cb1aff1-07ab-40a1-8692-d937cd77368a",
           "text": "G14: Sterilize The Room [FALLBACK(AT12,AT13)]",
           "type": "istar.Goal",
-          "x": 2773,
-          "y": 968,
+          "x": 2318,
+          "y": 1094,
           "customProperties": {
             "Description": "",
             "Monitors": "current_room"
@@ -126,8 +126,8 @@
           "id": "65c4c58e-842b-41f3-936e-0c75c666b9b6",
           "text": "G10: Clean Current Room [G11;G12;G13;G14]",
           "type": "istar.Goal",
-          "x": 2309,
-          "y": 786,
+          "x": 1854,
+          "y": 912,
           "customProperties": {
             "Description": "",
             "CreationCondition": "assertion condition \"not current_room.occupied\"",
@@ -138,18 +138,19 @@
           "id": "4a0c1e50-279d-4ff9-be06-9e1b8696f8f6",
           "text": "AT7: SendFailCovers",
           "type": "istar.Task",
-          "x": 1971,
-          "y": 1080,
+          "x": 1516,
+          "y": 1206,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "current_room"
           }
         },
         {
           "id": "5b67b70f-5934-4f0a-a5fb-a2837fb04b74",
           "text": "AT5: EnterRoom",
           "type": "istar.Task",
-          "x": 1936,
-          "y": 840,
+          "x": 1481,
+          "y": 966,
           "customProperties": {
             "Description": "",
             "Location": "current_room"
@@ -159,38 +160,41 @@
           "id": "f440dcf9-39d0-407d-a0af-1b3031bde1d1",
           "text": "AT9: SendFailVacuum",
           "type": "istar.Task",
-          "x": 2254,
-          "y": 1085,
+          "x": 1799,
+          "y": 1211,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "current_room"
           }
         },
         {
           "id": "adfeb084-cd4f-46ed-8771-2af0118a0c9c",
           "text": "AT11: SendFailWipe",
           "type": "istar.Task",
-          "x": 2560,
-          "y": 1101,
+          "x": 2105,
+          "y": 1227,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "current_room"
           }
         },
         {
           "id": "51a179ed-63c2-4cf9-8d4b-49343a10afd8",
           "text": "AT13: SendFailSterilize",
           "type": "istar.Task",
-          "x": 2903,
-          "y": 1100,
+          "x": 2448,
+          "y": 1226,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "current_room"
           }
         },
         {
           "id": "1566762a-4bdb-4a96-8345-05cda0463c2a",
           "text": "G9: IsRoomFree",
           "type": "istar.Goal",
-          "x": 1934,
-          "y": 746,
+          "x": 1479,
+          "y": 872,
           "customProperties": {
             "Description": "",
             "Monitors": "current_room"
@@ -200,27 +204,27 @@
           "id": "24bdbe21-4abb-437f-9563-8c2b3925bbf5",
           "text": "G2: Checking Sequence [G3#G4#G6#G8]",
           "type": "istar.Goal",
-          "x": 1326,
-          "y": 340,
+          "x": 871,
+          "y": 466,
           "customProperties": {
             "Description": "",
             "Controls": "current_room: Room",
             "Monitors": "current_room",
             "GoalType": "Query",
-            "QueriedProperty": "world_db->select(current_room: Room)"
+            "QueriedProperty": "world_db->select(r:Room | r.staphylococcus > 1)"
           }
         },
         {
           "id": "e92baa86-ee67-4c32-8a01-bf739030194f",
           "text": "G4: Check Battery [FALLBACK(AT1,G5)]",
           "type": "istar.Goal",
-          "x": 1064,
-          "y": 617,
+          "x": 609,
+          "y": 743,
           "customProperties": {
             "Description": "",
-            "Controls": "battery: Battery",
-            "Monitors": "battery",
-            "QueriedProperty": "world_db->select(r:Room)",
+            "Controls": "battery:Battery",
+            "Monitors": "battery, current_room",
+            "QueriedProperty": "world_db->select(batt:Battery)",
             "GoalType": "Query"
           }
         },
@@ -228,8 +232,8 @@
           "id": "58dfda3c-72ea-4606-b8b8-b4316a589be3",
           "text": "AT1: CheckBattery",
           "type": "istar.Task",
-          "x": 958,
-          "y": 770,
+          "x": 503,
+          "y": 896,
           "customProperties": {
             "Description": "",
             "Params": "battery"
@@ -239,8 +243,8 @@
           "id": "3fd33916-f0ba-4fb2-af15-4ac3fc81a9ca",
           "text": "G6: Check Equipment [FALLBACK(AT3,G7)]",
           "type": "istar.Goal",
-          "x": 1483,
-          "y": 632,
+          "x": 1028,
+          "y": 758,
           "customProperties": {
             "Description": "",
             "GoalType": "Query",
@@ -253,8 +257,8 @@
           "id": "838abed7-39d9-42fd-a9f9-47a2ea86feb3",
           "text": "AT3: CheckEquipments",
           "type": "istar.Task",
-          "x": 1382,
-          "y": 764,
+          "x": 925,
+          "y": 890,
           "customProperties": {
             "Description": "",
             "Params": "equipment"
@@ -264,8 +268,8 @@
           "id": "1f04bfaa-10cf-49be-bb19-941f58ed64b4",
           "text": "G15: Cancel Mission",
           "type": "istar.Goal",
-          "x": 1912,
-          "y": 300,
+          "x": 1457,
+          "y": 426,
           "customProperties": {
             "Description": "",
             "CreationCondition": "assertion condition \"current_room.occupied\"",
@@ -276,18 +280,19 @@
           "id": "3a51491e-2c2d-4f31-910b-ca0b35542eb0",
           "text": "AT14: AbortMission",
           "type": "istar.Task",
-          "x": 1920,
-          "y": 430,
+          "x": 1465,
+          "y": 556,
           "customProperties": {
-            "Description": ""
+            "Description": "",
+            "Location": "current_room"
           }
         },
         {
           "id": "d76186f5-c8e4-45a9-9de6-bd578a98f08c",
           "text": "G5: Recharge Robot",
           "type": "istar.Goal",
-          "x": 1158,
-          "y": 760,
+          "x": 703,
+          "y": 886,
           "customProperties": {
             "Description": "",
             "GoalType": "Query",
@@ -300,8 +305,8 @@
           "id": "5ede8ee4-cb4d-4df8-85b9-4bb3725b5f57",
           "text": "G7: Get Equipment",
           "type": "istar.Goal",
-          "x": 1611,
-          "y": 770,
+          "x": 1156,
+          "y": 896,
           "customProperties": {
             "Description": "",
             "GoalType": "Query",
@@ -314,22 +319,22 @@
           "id": "178a623b-e3af-44c5-a622-78658dd0fc3f",
           "text": "G3: TimeToComplete",
           "type": "istar.Goal",
-          "x": 852,
-          "y": 624,
+          "x": 397,
+          "y": 750,
           "customProperties": {
             "Description": "",
-            "GoalType": "Perform",
-            "QueriedProperty": "",
-            "monitors": "ttc",
-            "Controls": "ttc->Float"
+            "GoalType": "Query",
+            "QueriedProperty": "world_db->select(ttc: TTC)",
+            "monitors": "ttc:TTC",
+            "Controls": "ttc"
           }
         },
         {
           "id": "9e50c78c-a707-40a0-9d2e-9a371567b4ee",
           "text": "AT2: RechargeAndGoBack",
           "type": "istar.Task",
-          "x": 1145,
-          "y": 885,
+          "x": 690,
+          "y": 1011,
           "customProperties": {
             "Description": "",
             "Params": "current_room, recharge_room, battery"
@@ -339,8 +344,8 @@
           "id": "be62227d-9ae1-4cea-b6e2-c7dcc553c932",
           "text": "AT4: GetEquipment",
           "type": "istar.Task",
-          "x": 1629,
-          "y": 901,
+          "x": 1174,
+          "y": 1027,
           "customProperties": {
             "Description": "",
             "Params": "equipment_room, current_room"
@@ -629,23 +634,23 @@
     "35a2c26a-1a4d-4add-a154-93cd5f1146b7": {
       "vertices": [
         {
-          "x": 1929,
-          "y": 1040
+          "x": 1474,
+          "y": 1166
         }
       ]
     },
     "30c1d39a-2910-4629-a9c2-eadea45d762f": {
       "vertices": [
         {
-          "x": 1846,
-          "y": 259
+          "x": 1391,
+          "y": 385
         }
       ]
     }
   },
   "tool": "pistar.2.1.0",
   "istar": "2.0",
-  "saveDate": "Wed, 03 Jul 2024 01:30:26 GMT",
+  "saveDate": "Wed, 03 Jul 2024 03:46:46 GMT",
   "diagram": {
     "width": 7798,
     "height": 2593,
