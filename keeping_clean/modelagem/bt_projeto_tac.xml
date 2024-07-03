@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="Untitled">
+  <BehaviorTree ID="Untitled">
+    <Fallback>
+      <ReactiveSequence>
+        <TimeToComplete ttc="{ttc}"/>
+        <Fallback>
+          <CheckBattery/>
+          <Sequence>
+            <GoToDestination name="Go to Recharge Station"
+                             x="0"
+                             y="0"/>
+            <WaitFullBattery/>
+            <GoToDestination name="Go Back to Room"
+                             x="5"
+                             y="1"/>
+          </Sequence>
+        </Fallback>
+        <Fallback>
+          <CheckEquipments/>
+          <Sequence>
+            <GoToDestination name="Go To Storage"
+                             x="7"
+                             y="1"/>
+            <GoToDestination name="Go Back to Room"
+                             x="5"
+                             y="1"/>
+          </Sequence>
+        </Fallback>
+        <Sequence>
+          <isRoomFree/>
+          <GoToDestination name="Go to Room"
+                           x="5"
+                           y="1"/>
+          <Sequence>
+            <Fallback>
+              <MoveFurniture/>
+              <SendMessageToManager message="fail: move furniture"/>
+            </Fallback>
+            <Fallback>
+              <VacuumFloor/>
+              <SendMessageToManager message="fail: Vacuum floor"/>
+            </Fallback>
+            <Fallback>
+              <WipeFloor/>
+              <SendMessageToManager message="fail: wipe floor"/>
+            </Fallback>
+            <Fallback>
+              <SterilizeFurniture/>
+              <SendMessageToManager message="fail: Sterilize furniture"/>
+            </Fallback>
+          </Sequence>
+          <GoToDestination name="Go To Recharge Station"
+                           x="0"
+                           y="0"/>
+        </Sequence>
+      </ReactiveSequence>
+      <Sequence>
+        <SendMessageToManager message="fail: Mission aborted"/>
+        <AbortMission/>
+      </Sequence>
+    </Fallback>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="AbortMission"
+            editable="true"/>
+    <Condition ID="CheckBattery"
+               editable="true"/>
+    <Condition ID="CheckEquipments"
+               editable="true"/>
+    <Action ID="GoToDestination"
+            editable="true">
+      <input_port name="x"/>
+      <input_port name="y"/>
+    </Action>
+    <Action ID="MoveFurniture"
+            editable="true"/>
+    <Action ID="SendMessageToManager"
+            editable="true">
+      <input_port name="message"/>
+    </Action>
+    <Action ID="SterilizeFurniture"
+            editable="true"/>
+    <Action ID="TimeToComplete"
+            editable="true">
+      <output_port name="ttc"/>
+    </Action>
+    <Action ID="VacuumFloor"
+            editable="true"/>
+    <Action ID="WaitFullBattery"
+            editable="true"/>
+    <Action ID="WipeFloor"
+            editable="true"/>
+    <Condition ID="isRoomFree"
+               editable="true"/>
+  </TreeNodesModel>
+
+</root>
