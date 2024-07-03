@@ -13,20 +13,23 @@ ARGUMENTS = [
                           description='Behavior Tree XML to execute'),
     DeclareLaunchArgument('tick_rate_ms', default_value="500",
                           description='Rate in milliseconds between ticks'),
+    DeclareLaunchArgument('has_equipments', default_value="false",
+                          description='Whether the robot has equipments'),
 ]
 
 
 def generate_launch_description():
-    execute_bt_cmd = Node(
-        package="keeping_clean",
-        executable="bt_executor",
-        name="bt_executor",
-        parameters=[{"bt": LaunchConfiguration('bt'),
-                     "tick_rate_ms": LaunchConfiguration("tick_rate_ms")}]
-    )
+  execute_bt_cmd = Node(
+      package="keeping_clean",
+      executable="bt_executor",
+      name="bt_executor",
+      parameters=[{"bt": LaunchConfiguration('bt'),
+                   "tick_rate_ms": LaunchConfiguration("tick_rate_ms"),
+                   "has_equipments": LaunchConfiguration("has_equipments"),
+                   }],
+  )
 
-    ld = LaunchDescription(ARGUMENTS)
-    ld.add_action(execute_bt_cmd)
+  ld = LaunchDescription(ARGUMENTS)
+  ld.add_action(execute_bt_cmd)
 
-    return ld
-
+  return ld

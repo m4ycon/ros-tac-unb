@@ -9,18 +9,18 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-class CheckEquipments : public BT::ConditionNode
+class PickEquipments : public BT::SyncActionNode
 {
 public:
-  CheckEquipments(const std::string &name,
-                  const BT::NodeConfiguration &config,
-                  rclcpp::Node::SharedPtr node_ptr);
+  PickEquipments(const std::string &name,
+                 const BT::NodeConfiguration &config,
+                 rclcpp::Node::SharedPtr node_ptr);
 
   BT::NodeStatus tick() override;
 
   static BT::PortsList providedPorts()
   {
-    return BT::PortsList{BT::InputPort<bool>("has_equipments")};
+    return BT::PortsList{BT::OutputPort<bool>("has_equipments")};
   }
 
 private:
