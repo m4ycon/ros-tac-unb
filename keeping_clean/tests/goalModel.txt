@@ -258,7 +258,7 @@
         },
         {
           "id": "c3519ece-b860-433f-a05c-4c687492e9f2",
-          "text": "AT3: WaitFullBattery",
+          "text": "AT3: StationDock",
           "type": "istar.Task",
           "x": 459,
           "y": 885,

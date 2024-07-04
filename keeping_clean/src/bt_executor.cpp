@@ -10,18 +10,19 @@
 #include "move_furniture.cpp"
 #include "pick_equipments.cpp"
 #include "send_message_to_manager.cpp"
+#include "sleep.cpp"
+#include "station_dock.cpp"
 #include "sterilize_furniture.cpp"
 #include "time_to_complete.cpp"
 #include "vacuum_floor.cpp"
-#include "wait_full_battery.cpp"
 #include "wipe_floor.cpp"
+
 
 BTExecutor::BTExecutor(const std::string &node_name) : rclcpp::Node(node_name)
 {
   this->declare_parameter("bt", rclcpp::PARAMETER_STRING);
   this->declare_parameter("tick_rate_ms", rclcpp::PARAMETER_INTEGER);
-  this->declare_parameter("has_equipments", rclcpp::PARAMETER_BOOL);
-
+  
   RCLCPP_INFO(get_logger(), "Started BT Executor");
 }
 
@@ -90,10 +91,11 @@ void BTExecutor::register_nodes()
   registerNode<MoveFurniture>("MoveFurniture");
   registerNode<PickEquipments>("PickEquipments");
   registerNode<SendMessageToManager>("SendMessageToManager");
+  registerNode<Sleep>("Sleep");
+  registerNode<StationDock>("StationDock");
   registerNode<SterilizeFurniture>("SterilizeFurniture");
   registerNode<TimeToComplete>("TimeToComplete");
   registerNode<VacuumFloor>("VacuumFloor");
-  registerNode<WaitFullBattery>("WaitFullBattery");
   registerNode<WipeFloor>("WipeFloor");
 }
 

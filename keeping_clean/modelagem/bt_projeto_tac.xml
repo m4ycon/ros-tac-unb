@@ -11,7 +11,7 @@
             <GoToDestination name="Go to Recharge Station"
                              x="0"
                              y="0"/>
-            <WaitFullBattery/>
+            <StationDock/>
             <GoToDestination name="Go Back to Room"
                              x="5"
                              y="1"/>
@@ -90,7 +90,7 @@
     </Action>
     <Action ID="VacuumFloor"
             editable="true"/>
-    <Action ID="WaitFullBattery"
+    <Action ID="StationDock"
             editable="true"/>
     <Action ID="WipeFloor"
             editable="true"/>

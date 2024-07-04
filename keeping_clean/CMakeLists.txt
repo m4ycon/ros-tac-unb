@@ -11,6 +11,8 @@ find_package(nav2_core REQUIRED)
 find_package(nav2_behavior_tree REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(irobot_create_msgs REQUIRED)
 find_package(behaviortree_cpp_v3 REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -39,6 +41,8 @@ set(TARGET_DEPENDS
     nav2_core
     nav2_behavior_tree
     geometry_msgs
+    sensor_msgs
+    irobot_create_msgs
     std_msgs
     tf2
     tf2_geometry_msgs

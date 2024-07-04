@@ -30,8 +30,8 @@ ros2 launch turtlebot4_ignition_bringup turtlebot4_ignition.launch.py slam:=true
 
 source install/setup.zsh # pelo menos uma vez após o colcon build
 
-colcon build
-cmake . && make
+colcon build && \
+cmake . && make && \
 ros2 launch keeping_clean execute_bt.launch.py bt:="./behavior_trees/keeping_clean.xml"
 
 
