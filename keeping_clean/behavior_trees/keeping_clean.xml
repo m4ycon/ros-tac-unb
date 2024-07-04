@@ -4,14 +4,22 @@
   <BehaviorTree ID="Untitled">
     <Sequence>
       <Sequence>
-        <SetBlackboard output_key="has_equipments" value="True" />
-        <SetBlackboard output_key="is_room_free" value="True" />
-        <SetBlackboard output_key="recharge_x" value="0.0" />
-        <SetBlackboard output_key="recharge_y" value="0.0" />
-        <SetBlackboard output_key="room_x" value="0.0" />
-        <SetBlackboard output_key="room_y" value="3.0" />
-        <SetBlackboard output_key="storage_x" value="-2.0" />
-        <SetBlackboard output_key="storage_y" value="2.0" />
+        <SetBlackboard value="True"
+                       output_key="has_equipments"/>
+        <SetBlackboard value="True"
+                       output_key="is_room_free"/>
+        <SetBlackboard value="0.0"
+                       output_key="recharge_x"/>
+        <SetBlackboard value="0.0"
+                       output_key="recharge_y"/>
+        <SetBlackboard value="0.0"
+                       output_key="room_x"/>
+        <SetBlackboard value="3.0"
+                       output_key="room_y"/>
+        <SetBlackboard value="-2.0"
+                       output_key="storage_x"/>
+        <SetBlackboard value="2.0"
+                       output_key="storage_y"/>
       </Sequence>
       <Fallback>
         <ReactiveSequence>
@@ -19,10 +27,13 @@
           <Fallback>
             <CheckBattery/>
             <Sequence>
-              <GoToDestination name="Go to Recharge Station"
-                               x="{recharge_x}"
-                               y="{recharge_y}"/>
-              <WaitFullBattery/>
+              <StationDock/>
+              <RetryUntilSuccessful num_attempts="30">
+                <Sequence>
+                  <Sleep msec="1000"/>
+                  <CheckBattery/>
+                </Sequence>
+              </RetryUntilSuccessful>
               <GoToDestination name="Go Back to Room"
                                x="{room_x}"
                                y="{room_y}"/>
@@ -105,6 +116,8 @@
             editable="true">
       <input_port name="message"/>
     </Action>
+    <Action ID="StationDock"
+            editable="true"/>
     <Action ID="SterilizeFurniture"
             editable="true"/>
     <Action ID="TimeToComplete"
@@ -112,8 +125,6 @@
       <output_port name="ttc"/>
     </Action>
     <Action ID="VacuumFloor"
-            editable="true"/>
-    <Action ID="WaitFullBattery"
             editable="true"/>
     <Action ID="WipeFloor"
             editable="true"/>
