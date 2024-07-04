@@ -1,4 +1,4 @@
-(:define (domain hospital)
+(define (domain hospital)
 
     (:types 
         room - object
@@ -9,30 +9,29 @@
     (:predicates 
         (equipmentok ?r - robot)
         (occupied ?rm - room)
+        (batterybelow15 ?batt - battery)
     )
 
     (:functions
         (recharge ?batt - battery)
         (staphylococcus ?rm - room)
-        (batterybelow ?batt - battery)
     )
 
     (:capabilities organization equipmentsearch sndmessage recharger equipmentcheck)
 
-    (:task CheckBattery :parameters (?r - robot ?batt - battery))
+    (:task CheckRobotBattery :parameters (?r - robot ?batt - battery))
     (:method check-battery
         :parameters (?r - robot ?batt - battery) 
-        :task (CheckBattery ?r ?batt)
-        :precondition()
+        :task (CheckRobotBattery ?r ?batt)
         :subtasks (and 
-            (check-battery ?r ?batt)
+            (check-robot-battery ?r ?batt)
         )
     )
-    (:action check-battery 
+    (:action check-robot-battery 
         :parameters (?r - robot ?batt - battery)
         :required-capabilities (organization)
         :effect( and
-            ( > (batterybelow ?r ?batt) 15)
+            (batterybelow15 ?r ?batt)
         )
     )
 
@@ -40,9 +39,7 @@
     (:method recharge-and-go-back
         :parameters (?r - robot ?recrm - room ?previousrm - room ?batt - battery)
         :task (RechargeAndGoBack ?r ?recrm ?previousrm ?batt)
-        :precondition ( and
-                    ( < (batterybelow ?r ?batt) 15)
-        )
+        :precondition ( and (batterybelow15 ?batt))
         :subtasks ( and
             (go-to-recharge-station ?r ?recrm)
             (wait-full-battery ?r ?batt)
@@ -50,32 +47,31 @@
         )
     )
     (:action go-to-recharge-station
-        :parameters (?r ?recrm)
-        :required-capabilities (organizatin)
+        :parameters (?r - robot ?recrm - room)
+        :required-capabilities (organization)
     )
     (:action wait-full-battery 
-        :parameters (?r ?batt)
+        :parameters (?r - robot ?batt - battery)
         :required-capabilities (recharger)
-        effect ( and
-            (assign (recharge ?batt) 0)
+        :effect ( and
+            (assign (recharge ?batt) 100)
         )
     )
-    (:action go-back-to-room
-        :parameters (?r ?previousrm)
+    (:action go-back-to-room-from-recharge
+        :parameters (?r - robot ?previousrm - room)
         :required-capabilities(organization)
     )
 
-    (:task CheckEquipment :parameters (?r - robot ?eqp - equipment))
+    (:task CheckEquipments :parameters (?r - robot ?eqp - equipment))
     (:method check-equipment
         :parameters (?r - robot ?eqp - equipment)
-        :task (CheckEquipment ?r ?eqp)
-        :precondition ()
+        :task (CheckEquipments ?r ?eqp)
         :subtasks (and
             (check-equipment ?r ?eqp)
         )
     )
     (:action check-equipment
-        :parameters (?r ?eqp)
+        :parameters (?r - robot ?eqp - equipment)
         :required-capabilities(equipmentcheck)
     )
 
@@ -83,9 +79,7 @@
     (:method find-equipment
         :parameters (?r - robot ?eqrm - room ?previousrm - room)
         :task (GetEquipment ?r ?eqrm ?previousrm)
-        :precondition (and
-            (not (equipmentok ?r))    
-        )
+        :precondition (and (not (equipmentok ?r)))
         :subtasks (and
             (get-equipment ?r ?eqrm)
         )
@@ -98,7 +92,7 @@
         )
     )
     (:action go-back-to-room
-        :parameters (?r ?previousrm)
+        :parameters (?r -robot ?previousrm - room)
         :required-capabilities(organization)
     )
 
@@ -106,9 +100,7 @@
     (:method enter-room
        :parameters (?r - robot ?rm - room)
        :task (EnterRoom ?r ?rm)
-       :precondition (and
-                  (not (occupied ?rm))
-       )
+       :precondition (and (not (occupied ?rm)))
        :subtasks (and
  	        (mark-room ?r ?rm)
 	    )
@@ -125,7 +117,6 @@
     (:method covers-change
         :parameters (?r - robot ?rm - room)
         :task (ChangeCovers ?r ?rm)
-        :precondition ()
         :subtasks (and
             (change-covers ?r ?rm)
         )
@@ -136,10 +127,9 @@
     )
 
     (:task SendFailCovers :parameters (?r - robot ?rm - room))
-    (: method send-fail-covers
+    (:method send-fail-covers
         :parameters (?r - robot ?rm - room)
         :task (SendFailCovers)
-        :precondition ()
         :subtasks (and
             (send-msg-fail-covers ?r ?rm)
         )
@@ -163,10 +153,9 @@
     )
 
     (:task SendFailVacuum:parameters (?r - robot ?rm - room))
-    (: method send-fail-vacuum
+    (:method send-fail-vacuum
         :parameters (?r - robot ?rm - room)
         :task (SendFailVacuum)
-        :precondition ()
         :subtasks (and
             (send-msg-fail-vacuum ?r ?rm)
         )
@@ -190,10 +179,9 @@
     )
 
     (:task SendFailWipe:parameters (?r - robot ?rm - room))
-    (: method send-fail-wipe
+    (:method send-fail-wipe
         :parameters (?r - robot ?rm - room)
         :task (SendFailWipe)
-        :precondition ()
         :subtasks (and
             (send-msg-fail-wipe ?r ?rm)
         )
@@ -220,10 +208,9 @@
     )
 
     (:task SendFailSterilize:parameters (?r - robot ?rm - room))
-    (: method send-fail-sterilize
+    (:method send-fail-sterilize
         :parameters (?r - robot ?rm - room)
         :task (SendFailSterilize)
-        :precondition ()
         :subtasks (and
             (send-msg-fail-sterilize ?r ?rm)
         )
@@ -237,9 +224,7 @@
     (:method abort-mission
        :parameters (?r - robot ?rm - room)
        :task (AbortMission ?r ?rm)
-       :precondition (and
-                  (occupied ?rm)
-       )
+       :precondition (and (occupied ?rm))
        :subtasks (and
  	        (msg-to-mgr ?r ?rm)
 	    )

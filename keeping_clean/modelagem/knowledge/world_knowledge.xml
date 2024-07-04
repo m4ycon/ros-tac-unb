@@ -15,13 +15,14 @@
         <occupied>False</occupied>
     </Room>
     <Battery>
+        <name>Bate</name>
         <charge>90</charge>        
     </Battery>
     <TTC>
         <status>0</status>
     </TTC>
     <Equipment>
-        <name>Vassoura</name>
+        <name>EQPT</name>
         <status>True</status>
     </Equipment>
 </world_db>

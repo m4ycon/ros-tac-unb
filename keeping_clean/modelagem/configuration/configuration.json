@@ -2,13 +2,13 @@
     "world_db": {
         "type": "file",
         "file_type": "xml",
-        "path": "knowledge/world_knowledge.xml",
+        "path": "/home/edu/Documents/ros-tac-unb/keeping_clean/modelagem/knowledge/world_knowledge.xml",
         "xml_root": "world_db"
     },
 
     "output": {
         "output_type": "file",
-        "file_path": "output/task_output.json",
+        "file_path": "/home/edu/Documents/ros-tac-unb/keeping_clean/modelagem/output/task_output.json",
         "file_type": "json"
     },
 
@@ -18,6 +18,14 @@
         {
             "hddl_type": "room",
             "ocl_type": "Room"
+        },
+        {
+            "hddl_type": "battery",
+            "ocl_type": "Battery"
+        },
+        {
+            "hddl_type": "equipment",
+            "ocl_type": "Equipment"
         }
     ],
 
@@ -199,7 +207,7 @@
         {
             "type": "attribute",
             "name": "recharge",
-            "relates_to": "battery",
+            "relates_to": "Battery",
             "belongs_to": "world_db",
             "mapped_type": "function",
             "map": {
@@ -210,11 +218,11 @@
         {
             "type": "attribute",
             "name": "battery_below",
-            "relates_to": "battery",
+            "relates_to": "Battery",
             "belongs_to": "world_db",
-            "mapped_type": "function",
+            "mapped_type": "predicate",
             "map": {
-                "pred": "batterybelow",
+                "pred": "batterybelow15",
                 "arg_sorts": ["battery"]
             }
         }
