@@ -8,7 +8,7 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-class CheckBattery : public BT::ConditionNode
+class CheckBattery : public BT::StatefulActionNode
 {
 public:
   CheckBattery(const std::string &name,
@@ -16,7 +16,9 @@ public:
                   rclcpp::Node::SharedPtr node_ptr);
 
   // Method overrides
-  BT::NodeStatus tick() override;
+  BT::NodeStatus onStart() override;
+  BT::NodeStatus onRunning() override;
+  void onHalted() override {};
 
   void update_msg(const sensor_msgs::msg::BatteryState new_msg);
 

@@ -12,6 +12,7 @@
 #include "send_message_to_manager.cpp"
 #include "sleep.cpp"
 #include "station_dock.cpp"
+#include "station_undock.cpp"
 #include "sterilize_furniture.cpp"
 #include "time_to_complete.cpp"
 #include "vacuum_floor.cpp"
@@ -93,6 +94,7 @@ void BTExecutor::register_nodes()
   registerNode<SendMessageToManager>("SendMessageToManager");
   registerNode<Sleep>("Sleep");
   registerNode<StationDock>("StationDock");
+  registerNode<StationUndock>("StationUndock");
   registerNode<SterilizeFurniture>("SterilizeFurniture");
   registerNode<TimeToComplete>("TimeToComplete");
   registerNode<VacuumFloor>("VacuumFloor");

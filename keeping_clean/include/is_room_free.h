@@ -8,7 +8,7 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
-class IsRoomFree : public BT::ConditionNode
+class IsRoomFree : public BT::SyncActionNode
 {
 public:
   IsRoomFree(const std::string &name,

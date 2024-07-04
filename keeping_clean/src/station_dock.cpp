@@ -5,6 +5,13 @@ StationDock::StationDock(const std::string &name, const BT::NodeConfiguration &c
 {
   action_client_ptr_ = rclcpp_action::create_client<Dock>(node_ptr_, "dock");
   done_flag_ = false;
+
+  auto qos = rclcpp::SystemDefaultsQoS();
+  qos.best_effort();
+  subscriber_ptr_ = node_ptr->create_subscription<DockStatus>(
+      "/dock_status",
+      qos,
+      std::bind(&StationDock::dock_status_callback, this, std::placeholders::_1));
 }
 
 BT::NodeStatus StationDock::onStart()
@@ -30,7 +37,7 @@ BT::NodeStatus StationDock::onStart()
 
 BT::NodeStatus StationDock::onRunning()
 {
-  if (done_flag_)
+  if (done_flag_ || is_docked_)
   {
     RCLCPP_INFO(node_ptr_->get_logger(), "Docked");
     return BT::NodeStatus::SUCCESS;
@@ -42,4 +49,9 @@ void StationDock::dock_callback(const GoalHandleDock::WrappedResult &result)
 {
   if (result.code == rclcpp_action::ResultCode::SUCCEEDED)
     done_flag_ = true;
+}
+
+void StationDock::dock_status_callback(const DockStatus::SharedPtr msg)
+{
+  is_docked_ = msg->is_docked;
 }

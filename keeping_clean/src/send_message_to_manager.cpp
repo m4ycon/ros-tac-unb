@@ -7,6 +7,8 @@ SendMessageToManager::SendMessageToManager(const std::string &name, const BT::No
 
 BT::NodeStatus SendMessageToManager::tick()
 {
-  RCLCPP_INFO(node_ptr_->get_logger(), "SendMessageToManager");
+  auto message = getInput<std::string>("message");
+
+  RCLCPP_INFO(node_ptr_->get_logger(), "SendMessageToManager: %s", message.value().c_str());
   return BT::NodeStatus::SUCCESS;
 }

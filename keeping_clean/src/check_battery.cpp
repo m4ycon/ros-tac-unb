@@ -1,7 +1,7 @@
 #include "check_battery.h"
 
 CheckBattery::CheckBattery(const std::string &name, const BT::NodeConfiguration &config, rclcpp::Node::SharedPtr node_ptr)
-    : BT::ConditionNode(name, config), node_ptr_(node_ptr)
+    : BT::StatefulActionNode(name, config), node_ptr_(node_ptr)
 {
   auto qos = rclcpp::SystemDefaultsQoS();
   qos.best_effort();
@@ -11,13 +11,24 @@ CheckBattery::CheckBattery(const std::string &name, const BT::NodeConfiguration 
       std::bind(&CheckBattery::update_msg, this, std::placeholders::_1));
 }
 
-BT::NodeStatus CheckBattery::tick()
+BT::NodeStatus CheckBattery::onStart()
 {
-  RCLCPP_INFO(node_ptr_->get_logger(), "CheckBattery");
+  return BT::NodeStatus::RUNNING;
+}
 
-  if (msg_.percentage < 15)
+BT::NodeStatus CheckBattery::onRunning()
+{
+  auto percentage = msg_.percentage * 100;
+
+  if (percentage == 0) {
+    RCLCPP_INFO(node_ptr_->get_logger(), "Waiting for battery message");
+    return BT::NodeStatus::RUNNING;
+  }
+
+  RCLCPP_INFO(node_ptr_->get_logger(), "CheckBattery (%f%%)", percentage);
+  if (percentage < 15)
   {
-    RCLCPP_INFO(node_ptr_->get_logger(), "Battery low: %f", msg_.percentage);
+    RCLCPP_INFO(node_ptr_->get_logger(), "Battery low");
     return BT::NodeStatus::FAILURE;
   }
 
