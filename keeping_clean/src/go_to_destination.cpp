@@ -44,7 +44,6 @@ BT::NodeStatus GoToDestination::onStart()
 
 BT::NodeStatus GoToDestination::onRunning()
 {
-  RCLCPP_INFO(node_ptr_->get_logger(), "GoToDestination: onRunning\n");
   if (!done_flag_) return BT::NodeStatus::RUNNING;
 
   auto x = getInput<double>("x").value();

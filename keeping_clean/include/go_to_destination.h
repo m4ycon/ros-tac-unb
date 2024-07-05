@@ -21,7 +21,9 @@ public:
   // Method overrides
   BT::NodeStatus onStart() override;
   BT::NodeStatus onRunning() override;
-  void onHalted() override {};
+  void onHalted() override {
+    RCLCPP_INFO(node_ptr_->get_logger(), "GoToDestination: onHalted\n");
+  };
 
   static BT::PortsList providedPorts()
   {

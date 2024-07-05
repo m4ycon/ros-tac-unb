@@ -13,7 +13,21 @@ CheckBattery::CheckBattery(const std::string &name, const BT::NodeConfiguration 
 
 BT::NodeStatus CheckBattery::onStart()
 {
-  return BT::NodeStatus::RUNNING;
+  auto percentage = msg_.percentage * 100;
+
+  if (percentage == 0) {
+    RCLCPP_INFO(node_ptr_->get_logger(), "Waiting for battery message");
+    return BT::NodeStatus::RUNNING;
+  }
+
+  RCLCPP_INFO(node_ptr_->get_logger(), "CheckBattery (%f%%)", percentage);
+  if (percentage < 15)
+  {
+    RCLCPP_INFO(node_ptr_->get_logger(), "Battery low");
+    return BT::NodeStatus::FAILURE;
+  }
+
+  return BT::NodeStatus::SUCCESS;
 }
 
 BT::NodeStatus CheckBattery::onRunning()

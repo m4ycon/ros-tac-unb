@@ -7,8 +7,6 @@ CheckEquipments::CheckEquipments(const std::string &name, const BT::NodeConfigur
 
 BT::NodeStatus CheckEquipments::tick()
 {
-  RCLCPP_INFO(node_ptr_->get_logger(), "CheckEquipments");
-
   auto has_equipments = getInput<bool>("has_equipments");
   if (!has_equipments.value())
   {
