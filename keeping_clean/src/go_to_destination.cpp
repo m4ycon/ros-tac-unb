@@ -44,12 +44,23 @@ BT::NodeStatus GoToDestination::onStart()
 
 BT::NodeStatus GoToDestination::onRunning()
 {
-  if (!done_flag_) return BT::NodeStatus::RUNNING;
+  if (!done_flag_)
+    return BT::NodeStatus::RUNNING;
 
   auto x = getInput<double>("x").value();
   auto y = getInput<double>("y").value();
   RCLCPP_INFO(node_ptr_->get_logger(), "GoToDestination: goal reached (%f, %f)\n", x, y);
   return BT::NodeStatus::SUCCESS;
+}
+
+void GoToDestination::onHalted()
+{
+  // Cancel the goal
+  action_client_ptr_->async_cancel_all_goals();
+
+  auto x = getInput<double>("x").value();
+  auto y = getInput<double>("y").value();
+  RCLCPP_INFO(node_ptr_->get_logger(), "GoToDestination: goal cancelled (%f, %f)\n", x, y);
 }
 
 void GoToDestination::nav_to_pose_callback(const GoalHandleNav::WrappedResult &result)
