@@ -28,6 +28,7 @@ BT::NodeStatus GoToDestination::onStart()
   // Setup action client
   auto send_goal_options = rclcpp_action::Client<NavigateToPose>::SendGoalOptions();
   send_goal_options.result_callback = std::bind(&GoToDestination::nav_to_pose_callback, this, std::placeholders::_1);
+  send_goal_options.feedback_callback = std::bind(&GoToDestination::nav_feed_callback, this, std::placeholders::_1, std::placeholders::_2);
 
   // Send pose
   RCLCPP_INFO(node_ptr_->get_logger(), "GoToDestination: sending goal (%f, %f)\n", x, y);
@@ -68,4 +69,13 @@ void GoToDestination::nav_to_pose_callback(const GoalHandleNav::WrappedResult &r
   // If there is a result, we consider navigation completed.
   if (result.code == rclcpp_action::ResultCode::SUCCEEDED)
     done_flag_ = true;
+}
+
+void GoToDestination::nav_feed_callback(
+    GoalHandleNav::SharedPtr,
+    const std::shared_ptr<const NavigateToPose::Feedback> feedback)
+{
+  // remaining time
+  auto remaining_time = feedback->estimated_time_remaining.sec;
+  setOutput("ttc", remaining_time);
 }

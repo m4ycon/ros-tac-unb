@@ -4,6 +4,8 @@
   <BehaviorTree ID="main">
     <Sequence>
       <Sequence>
+        <SetBlackboard value="0"
+                       output_key="ttc"/>
         <SetBlackboard value="False"
                        output_key="has_equipments"/>
         <SetBlackboard value="True"
@@ -47,14 +49,16 @@
               <Sequence>
                 <GoToDestination name="Go To Storage"
                                  x="{storage_x}"
-                                 y="{storage_y}"/>
+                                 y="{storage_y}"
+                                 ttc="{ttc}"/>
                 <PickEquipments has_equipments="{has_equipments}"/>
               </Sequence>
             </Fallback>
             <Sequence>
               <GoToDestination name="Go to Room"
                                x="{room_x}"
-                               y="{room_y}"/>
+                               y="{room_y}"
+                               ttc="{ttc}"/>
               <Sequence name="Room Tasks">
                 <Fallback>
                   <MoveFurniture/>
@@ -73,12 +77,13 @@
                   <SendMessageToManager message="fail: Sterilize furniture"/>
                 </Fallback>
               </Sequence>
+              <GoToDestination name="Go To Recharge Station"
+                               x="{recharge_x}"
+                               y="{recharge_y}"
+                               ttc="{ttc}"/>
+              <StationDock/>
             </Sequence>
           </ReactiveSequence>
-          <GoToDestination name="Go To Recharge Station"
-                           x="{recharge_x}"
-                           y="{recharge_y}"/>
-          <StationDock/>
           <SetBlackboard value="True"
                          output_key="is_room_free"/>
         </Sequence>
@@ -105,6 +110,8 @@
             editable="true">
       <input_port name="x"/>
       <input_port name="y"/>
+      <output_port name="ttc"
+                   default="{ttc}"/>
     </Action>
     <Condition ID="IsRoomFree"
                editable="true">
@@ -128,7 +135,7 @@
             editable="true"/>
     <Action ID="TimeToComplete"
             editable="true">
-      <output_port name="ttc"/>
+      <input_port name="ttc"/>
     </Action>
     <Action ID="VacuumFloor"
             editable="true"/>

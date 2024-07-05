@@ -7,6 +7,8 @@ TimeToComplete::TimeToComplete(const std::string &name, const BT::NodeConfigurat
 
 BT::NodeStatus TimeToComplete::tick()
 {
-  RCLCPP_INFO(node_ptr_->get_logger(), "TimeToComplete");
+  auto ttc = getInput<int>("ttc");
+  RCLCPP_INFO(node_ptr_->get_logger(), "TimeToComplete %ds", ttc.value());
+
   return BT::NodeStatus::SUCCESS;
 }

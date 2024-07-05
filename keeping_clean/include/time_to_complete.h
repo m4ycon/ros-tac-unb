@@ -20,7 +20,7 @@ public:
 
   static BT::PortsList providedPorts()
   {
-    return BT::PortsList{BT::OutputPort<double>("ttc")};
+    return BT::PortsList{BT::InputPort<int>("ttc")};
   }
 
 private:

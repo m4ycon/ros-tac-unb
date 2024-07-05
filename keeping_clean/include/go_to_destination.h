@@ -26,11 +26,15 @@ public:
   static BT::PortsList providedPorts()
   {
     return BT::PortsList{BT::InputPort<double>("x"),
-                         BT::InputPort<double>("y")};
+                         BT::InputPort<double>("y"),
+                         BT::OutputPort<int>("ttc")};
   }
 
   // Action Client callback
   void nav_to_pose_callback(const GoalHandleNav::WrappedResult &result);
+  void nav_feed_callback(
+      GoalHandleNav::SharedPtr,
+      const std::shared_ptr<const NavigateToPose::Feedback> feedback);
 
 private:
   rclcpp::Node::SharedPtr node_ptr_;
