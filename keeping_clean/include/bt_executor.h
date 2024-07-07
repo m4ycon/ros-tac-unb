@@ -18,6 +18,7 @@ public:
 
   void register_nav2_plugins();
   void register_nodes();
+  void register_blackboard_data();
 
 private:
   BT::BehaviorTreeFactory factory_;
