@@ -6,6 +6,10 @@
 #include <string>
 #include <fstream>
 #include <chrono>
+#include <fstream>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 class BTExecutor : public rclcpp::Node
 {

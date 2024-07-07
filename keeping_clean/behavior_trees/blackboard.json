@@ -1,0 +1,17 @@
+{
+  "ttc": 0,
+  "has_equipments": false,
+  "is_room_free": true,
+  "recharge": {
+    "x": -0.5,
+    "y": 0
+  },
+  "room": {
+    "x": 0,
+    "y": -3.5
+  },
+  "storage": {
+    "x": -2,
+    "y": 1
+  }
+}

@@ -21,17 +21,8 @@
 BTExecutor::BTExecutor(const std::string &node_name) : rclcpp::Node(node_name)
 {
   this->declare_parameter("bt", rclcpp::PARAMETER_STRING);
+  this->declare_parameter("blackboard", rclcpp::PARAMETER_STRING);
   this->declare_parameter("tick_rate_ms", rclcpp::PARAMETER_INTEGER);
-
-  this->declare_parameter("ttc", rclcpp::PARAMETER_INTEGER);
-  this->declare_parameter("has_equipments", rclcpp::PARAMETER_BOOL);
-  this->declare_parameter("is_room_free", rclcpp::PARAMETER_BOOL);
-  this->declare_parameter("recharge_x", rclcpp::PARAMETER_DOUBLE);
-  this->declare_parameter("recharge_y", rclcpp::PARAMETER_DOUBLE);
-  this->declare_parameter("room_x", rclcpp::PARAMETER_DOUBLE);
-  this->declare_parameter("room_y", rclcpp::PARAMETER_DOUBLE);
-  this->declare_parameter("storage_x", rclcpp::PARAMETER_DOUBLE);
-  this->declare_parameter("storage_y", rclcpp::PARAMETER_DOUBLE);
 
   RCLCPP_INFO(get_logger(), "Started BT Executor");
 }
@@ -112,15 +103,19 @@ void BTExecutor::register_nodes()
 
 void BTExecutor::register_blackboard_data()
 {
-  tree_.rootBlackboard()->set("ttc", (int)get_parameter("ttc").as_int());
-  tree_.rootBlackboard()->set("has_equipments", get_parameter("has_equipments").as_bool());
-  tree_.rootBlackboard()->set("is_room_free", get_parameter("is_room_free").as_bool());
-  tree_.rootBlackboard()->set("recharge_x", get_parameter("recharge_x").as_double());
-  tree_.rootBlackboard()->set("recharge_y", get_parameter("recharge_y").as_double());
-  tree_.rootBlackboard()->set("room_x", get_parameter("room_x").as_double());
-  tree_.rootBlackboard()->set("room_y", get_parameter("room_y").as_double());
-  tree_.rootBlackboard()->set("storage_x", get_parameter("storage_x").as_double());
-  tree_.rootBlackboard()->set("storage_y", get_parameter("storage_y").as_double());
+  auto blackboard_path = this->get_parameter("blackboard").as_string();
+  std::ifstream file(blackboard_path);
+  json jsonData = json::parse(file);
+
+  tree_.rootBlackboard()->set("ttc", jsonData["ttc"].get<int>());
+  tree_.rootBlackboard()->set("has_equipments", jsonData["has_equipments"].get<bool>());
+  tree_.rootBlackboard()->set("is_room_free", jsonData["is_room_free"].get<bool>());
+  tree_.rootBlackboard()->set("recharge_x", jsonData["recharge"]["x"].get<double>());
+  tree_.rootBlackboard()->set("recharge_y", jsonData["recharge"]["y"].get<double>());
+  tree_.rootBlackboard()->set("room_x", jsonData["room"]["x"].get<double>());
+  tree_.rootBlackboard()->set("room_y", jsonData["room"]["y"].get<double>());
+  tree_.rootBlackboard()->set("storage_x", jsonData["storage"]["x"].get<double>());
+  tree_.rootBlackboard()->set("storage_y", jsonData["storage"]["y"].get<double>());
 }
 
 void BTExecutor::create_behavior_tree()
