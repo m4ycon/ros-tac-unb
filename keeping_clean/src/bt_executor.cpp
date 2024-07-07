@@ -144,7 +144,16 @@ int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<BTExecutor>("bt_executor");
+  auto now = node->now();
+
   node->setup();
+  rclcpp::shutdown();
+
+  rclcpp::Duration elapsed = node->now() - now;
+  auto minutes = (int) elapsed.seconds() / 60;
+  auto seconds = ((int) elapsed.seconds()) % 60;
+
+  RCLCPP_INFO(node->get_logger(), "Execution time: %dm %ds", minutes, seconds);
 
   return 0;
 }
